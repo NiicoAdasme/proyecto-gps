@@ -3,27 +3,43 @@ import { Link, Outlet } from "react-router-dom";
 import logo from "../../commons/images/logoCamanchaca.png";
 import "./NavBar.css";
 
+
 const NavBar = () => {
+  const LinkTecnico = [
+    { name: "Incidencias", link: "/incidencias" },
+    { name: "Tareas", link: "/tareas" },
+  ];
   return (
     <>
-      <nav className="navbar">
-        <ul>
-          <li className="contenedorLogo">
+      <div className="shadow-md w-full fixed top-0 left-0">
+        <div className="md:flex md:items-center justify-between py-4 md:px-10 px-7 bg-gradient-to-r from-paletaAzul1 to-paletaAzul2 transform">
+          <div className="flex items-center">
             <Link to="/">
-              <img src={logo} alt="Logo Camanchaca" />
+              <img
+                className="logoCamanchaca"
+                src={logo}
+                alt="logo camanchaca"
+              />
             </Link>
-          </li>
-          <li className="contenedorTexto navbar-brand">
-            <Link to="/incidencias">Incidencia</Link>
-          </li>
-          <li className="contenedorTexto navbar-brand">
-            <Link to="/mp">Manuel puto</Link>
-          </li>
-          <li className="contenedorPerfil">
-            <Link to="miPerfil">Perfil</Link>
-          </li>
-        </ul>
-      </nav>
+          </div>
+          <ul className="md:flex md:items-center md:pb-0 pb-12 absolute md:static 
+          transform md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0
+           pl-9 transition-all duration-500 ease-in
+           ">
+            {LinkTecnico.map((link) => (
+              <li className="md:ml-8 text-xl md:my-0 my-7">
+                <Link
+                  to={link.link}
+                  className="text-gray-800 font-bold hover:text-white"
+                >
+                  {link.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className="max-md:hidden ">perfil</div>
+        </div>
+      </div>
       <Outlet />
     </>
   );
