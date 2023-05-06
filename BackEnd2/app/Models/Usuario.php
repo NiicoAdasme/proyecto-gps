@@ -13,5 +13,9 @@ class Usuario extends Model
     protected $table = "usuario";
     protected $primaryKey = "id";
     protected $fillable = ["*"];
-    
+
+    public function departamento()
+    {
+        return $this->belongsTo(Departamento::class,"depa_id");
+    }
 }

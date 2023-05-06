@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string("arpl_nombre",100);
 
             $table->foreignId("plan_id")->nullable()->constrained("planta")->cascadeOnDelete()->nullOnDelete();
+            $table->foreignId("cafa_id")->nullable()->constrained("catalogo_falla")->cascadeOnDelete()->nullOnDelete();
             $table->timestamps();
         });
     }

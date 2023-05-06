@@ -13,4 +13,20 @@ class AreaPlanta extends Model
     protected $table = "area_planta";
     protected $primaryKey = "id";
     protected $fillable = ["*"];
+
+
+    public function incidente()
+    {
+        return $this->hasMany(Incidente::class,"arpl_id");
+    }
+
+    public function catalogoFalla()
+    {
+        return $this->belongsTo(CatalogoFalla::class,"cafa_id");
+    }
+
+    public function planta()
+    {
+        return $this->belongsTo(Planta::class,"plan_id");
+    }
 }

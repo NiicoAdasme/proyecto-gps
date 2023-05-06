@@ -21,4 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('catalogo')->group(function(){
     Route::post("crearMensaje",[CatalogoMensajeController::class,"crearMensaje"]);
+    Route::get("hola",[CatalogoMensajeController::class,"hola"]);
 });

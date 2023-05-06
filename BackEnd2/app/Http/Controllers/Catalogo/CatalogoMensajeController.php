@@ -20,4 +20,9 @@ class CatalogoMensajeController extends Controller
     {
         return $this->cameRepo->crearMensaje($request);
     }
+
+    public function hola(Request $request)
+    {
+        return $this->cameRepo->hola($request);
+    }
 }

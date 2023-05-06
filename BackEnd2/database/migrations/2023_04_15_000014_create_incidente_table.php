@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreignId("esta_id")->nullable()->constrained("estado")->cascadeOnDelete()->nullOnDelete();
             $table->foreignId("turn_id")->nullable()->constrained("turno")->cascadeOnDelete()->nullOnDelete();
             $table->foreignId("arpl_id")->nullable()->constrained("area_planta")->cascadeOnDelete()->nullOnDelete();
-            $table->foreignId("cafa_id")->nullable()->constrained("catalogo_falla")->cascadeOnDelete()->nullOnDelete();
             $table->foreignId("usua_id")->nullable()->constrained("usuario")->cascadeOnDelete()->nullOnDelete();
             $table->foreignId("depa_id")->nullable()->constrained("departamento")->cascadeOnDelete()->nullOnDelete();
 

@@ -13,4 +13,9 @@ class Departamento extends Model
     protected $table = "departamento";
     protected $primaryKey = "id";
     protected $fillable = ["*"];
+
+    public function usuario()
+    {
+        return $this->hasMany(Usuario::class,"depa_id");
+    }
 }
