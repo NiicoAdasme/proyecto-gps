@@ -1,11 +1,19 @@
-import React from 'react'
+import React from "react";
 
-const CustomTable = (filas,columnas,filtros) => {
+const CustomTable = ({ filas, columnas, filtros }) => {
   return (
-    <div className='p-4'>
-      hola
-    </div>
-  )
-}
+    <>
+      <table className="table-fixed">
+        <thead>
+          <tr>
+            {columnas.map((columna) => {
+              <th key={columna}>{columna}</th>;
+            })}
+          </tr>
+        </thead>
+      </table>
+    </>
+  );
+};
 
-export default CustomTable
+export default CustomTable;
