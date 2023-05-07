@@ -1,8 +1,11 @@
 import React from 'react'
+import { CustomTable } from '../../../components'
 
 const IncidenciasTecnico = () => {
   return (
-    <div>IncidenciasTecnico</div>
+    <>
+      <CustomTable/>
+    </>
   )
 }
 
