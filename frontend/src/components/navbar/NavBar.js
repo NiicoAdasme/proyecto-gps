@@ -1,9 +1,14 @@
-import React from "react";
+import React,{useState} from "react";
 import { Link, Outlet } from "react-router-dom";
 import logo from "../../commons/images/logoCamanchaca.png";
 import "./NavBar.css";
 
 const NavBar = ({children}) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const handleVisible = (() => {
+      setIsVisible(!isVisible);
+  });
+
   const LinkTecnico = [
     { name: "Incidencias", link: "/incidencias" },
     { name: "Tareas", link: "/tareas" },
@@ -21,14 +26,18 @@ const NavBar = ({children}) => {
               />
             </Link>
           </div>
+          <div className="md:hidden">
+            Opciones
+          </div>
           <ul
             className="md:flex md:items-center md:pb-0 pb-12 absolute md:static 
           transform md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0
            pl-9 transition-all duration-500 ease-in
            "
           >
-            {LinkTecnico.map((link) => (
-              <li className="md:ml-8 text-xl md:my-0 my-7">
+            <li className="md:hidden">-</li>
+            {LinkTecnico.map((link,index) => (
+              <li key={index} className="md:ml-8 text-xl md:my-0 my-7">
                 <Link
                  key={2}
                   to={link.link}
