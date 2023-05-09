@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Catalogo\CatalogoMensajeController;
+use App\Http\Controllers\Usuario\UsuarioController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,4 +23,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('catalogo')->group(function(){
     Route::post("crearMensaje",[CatalogoMensajeController::class,"crearMensaje"]);
     Route::get("hola",[CatalogoMensajeController::class,"hola"]);
+});
+
+Route::prefix('usuarios')->group(function(){
+    Route::post("datosUsuario",[UsuarioController::class,"datosUsuarios"]);
 });
