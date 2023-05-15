@@ -23,6 +23,12 @@ const Filters = [
     tipo: "text",
     titulo: "Nombre",
     placeholder: "Manuel",
+  },
+  {
+    nombre: "usua_rut",
+    tipo: "text",
+    titulo: "Rut",
+    placeholder: "201948029"
   }
 ];
 

@@ -17,26 +17,27 @@ import useLoading from "./queries/Loading/useLoading";
 import LoadingMask from "./queries/Loading/LoadingMask";
 
 function App() {
+  
+  const LinkTecnico = [
+    { name: "Incidencias", link: "/incidencias" },
+    { name: "Tareas", link: "/tareas" },
+  ];
+  
   const loading = useLoading().data;
   console.log(loading);
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<NavBar />}>
+      <Route path="/" element={<NavBar options={LinkTecnico} />}>
         <Route path="incidencias" element={<IncidenciasTecnico />} />
         <Route path="tareas" element={<TareasTecnico />} />
+        <Route path="miPerfil" element={<></>} />
       </Route>
     )
   );
 
   return (
     <>
-      <>
-        {loading && loading.isLoading ? (
-         <LoadingMask />
-        ) : (
-          <></>
-        )}
-      </>
+      <>{loading && loading.isLoading ? <LoadingMask /> : <></>}</>
       <RouterProvider router={router} />
     </>
   );
