@@ -22,7 +22,6 @@ const masterQuery = async (
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log(response.success.success);
         if (response.success.success) {
           setLoading(false);
           //TODO arreglar toast

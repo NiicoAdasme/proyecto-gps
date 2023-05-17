@@ -14,22 +14,17 @@ const Columnas = [
   {
     Header: "Rut",
     accessor: "usua_rut",
-  }
+  },
 ];
 
 const Filters = [
   {
     nombre: "usua_nombre",
-    tipo: "text",
+    tipo: "select",
     titulo: "Nombre",
     placeholder: "Manuel",
+    opciones: [{ id: 1, label: "opcion1" }],
   },
-  {
-    nombre: "usua_rut",
-    tipo: "text",
-    titulo: "Rut",
-    placeholder: "201948029"
-  }
 ];
 
 export { Columnas, Filters };

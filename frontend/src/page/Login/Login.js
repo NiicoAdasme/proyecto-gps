@@ -12,12 +12,10 @@ const Login = () => {
       ...inputs,
       [nombre]: e.target.value,
     });
-    console.log(inputs);
   };
 
   const handleFiltro = async (e) => {
     const respuesta = await queryLogin.mutateAsync(inputs);
-    console.log(respuesta);
   };
 
   return (

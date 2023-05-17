@@ -20,10 +20,9 @@ function App() {
     { name: "Tareas", link: "/tareas" },
   ];
 
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState(true);
 
   const loading = useLoading().data;
-  console.log(loading);
 
   const router = createBrowserRouter(
     createRoutesFromElements(<Route path="login" element={<Login />} />)
