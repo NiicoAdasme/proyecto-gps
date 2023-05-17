@@ -3,15 +3,14 @@ import { Link, Outlet } from "react-router-dom";
 import logo from "../../commons/images/logoCamanchaca.png";
 import "./NavBar.css";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import SegmentIcon from '@mui/icons-material/Segment';
+import SegmentIcon from "@mui/icons-material/Segment";
+
 
 const NavBar = ({ options }) => {
   const [isVisible, setIsVisible] = useState(false);
   const handleVisible = () => {
     setIsVisible(!isVisible);
   };
-
-  console.log(options)
 
   return (
     <>
@@ -26,15 +25,16 @@ const NavBar = ({ options }) => {
               />
             </Link>
             <button onClick={handleVisible} className="md:hidden">
-              <SegmentIcon sx={{fontSize:'64px'}} className="text-white" fontSize="large"/>
+              <SegmentIcon
+                sx={{ fontSize: "64px" }}
+                className="text-white"
+                fontSize="large"
+              />
             </button>
           </div>
           {isVisible ? (
             options.map((link, index) => (
-              <li
-                key={index}
-                className="text-xl my-7 list-none md:hidden"
-              >
+              <li key={index} className="text-xl my-7 list-none md:hidden">
                 <Link
                   key={index}
                   to={link.link}
@@ -44,6 +44,15 @@ const NavBar = ({ options }) => {
                 </Link>
               </li>
             ))
+          ) : (
+            <></>
+          )}
+          {isVisible ? (
+            <li className="text-xl my-7 list-none md:hidden">
+              <Link to="/miPerfil" className="text-white font-bold">
+                Perfil
+              </Link>
+            </li>
           ) : (
             <></>
           )}
@@ -68,7 +77,11 @@ const NavBar = ({ options }) => {
           </ul>
           <div className="max-md:hidden ">
             <Link to="/miPerfil">
-              <AccountCircleIcon sx={{fontSize:'64px'}} className="text-white" fontSize="large"/>
+              <AccountCircleIcon
+                sx={{ fontSize: "64px" }}
+                className="text-white"
+                fontSize="large"
+              />
             </Link>
           </div>
         </div>
