@@ -25,7 +25,17 @@ class UsuarioSeeder extends Seeder
                 "usua_activo" => true,
                 "depa_id" => 1,
                 "tius_id" => 1,
-            ],  
+            ], 
+            [
+                "usua_nombre" => "Nicolas",
+                "usua_apellido_p" => "Adasme",
+                "usua_apellido_m" => "Arroyo",
+                "usua_rut" => "198127965",
+                "usua_correo" => "nicolas.adasme1701@alumnos.ubiobio.cl",
+                "usua_activo" => true,
+                "depa_id" => 1,
+                "tius_id" => 1,
+            ], 
         ];
 
 
