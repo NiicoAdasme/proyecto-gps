@@ -5,7 +5,6 @@ import { setLoading } from "../../../queries/Loading/setLoading";
 const Filters = ({ filtros, query , onFiltrosChange}) => {
   const [inputValues, setInputValues] = useState({});
   const handleFiltro = async () => {
-    console.log("Cargando")
     setLoading(true);
     const response = await axios.post(query.url,inputValues);
     if(response.data.success) {

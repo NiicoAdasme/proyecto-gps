@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Catalogo\CatalogoMensajeController;
+use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\Usuario\UsuarioController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,4 +28,8 @@ Route::prefix('catalogo')->group(function(){
 
 Route::prefix('usuarios')->group(function(){
     Route::post("datosUsuario",[UsuarioController::class,"datosUsuarios"]);
+});
+
+Route::prefix('login')->group(function(){
+    Route::post("login",[LoginController::class,"login"]);
 });
