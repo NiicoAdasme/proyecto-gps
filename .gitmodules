@@ -1,0 +1,7 @@
+[submodule "BackEnd"]
+    path = BackEnd
+    url = https://github.com/NiicoAdasme/proyecto-gps.git
+
+[submodule "frontend"]
+    path = frontend
+    url = https://github.com/NiicoAdasme/proyecto-gps.git
