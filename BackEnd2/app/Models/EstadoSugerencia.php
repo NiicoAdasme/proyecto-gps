@@ -6,16 +6,16 @@ use App\Traits\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Planta extends Model
+class EstadoSugerencia extends Model
 {
     use HasFactory,Filterable;
 
-    protected $table = "planta";
+    protected $table = "estado_sugerencia";
     protected $primaryKey = "id";
     protected $fillable = ["*"];
 
-    public function areaPlanta()
+    public function sugerencia()
     {
-        return $this->hasMany(AreaPlanta::class,"plan_id");
+        return $this->hasMany(Sugerencia::class,"essu_id");
     }
 }
