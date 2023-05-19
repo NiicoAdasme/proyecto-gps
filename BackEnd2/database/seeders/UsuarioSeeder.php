@@ -32,6 +32,7 @@ class UsuarioSeeder extends Seeder
                 "usua_apellido_m" => "Arroyo",
                 "usua_rut" => "198127965",
                 "usua_correo" => "nicolas.adasme1701@alumnos.ubiobio.cl",
+                "usua_pass" => "1234",
                 "usua_activo" => true,
                 "depa_id" => 1,
                 "tius_id" => 1,
