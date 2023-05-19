@@ -14,8 +14,12 @@ class TareasController extends Controller
     {
         $this->tareaRepo = new TareasRepository();
     }
-    public function mensaje(Request $request) {
-        return $this->tareaRepo->mensaje($request);
+
+    public function createTarea(Request $request) {
+        return $this->tareaRepo->createTarea($request);
+    }
+    public function allTareas(Request $request) {
+        return $this->tareaRepo->allTareas($request);
     }
 
 

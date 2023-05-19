@@ -31,7 +31,8 @@ Route::prefix('usuarios')->group(function(){
     Route::post("datosUsuario",[UsuarioController::class,"datosUsuarios"]);
 });
 Route::prefix('tareas')->group(function(){
-    Route::get("mensaje",[TareasController::class,"mensaje"]);
+    Route::post("createTarea",[TareasController::class,"createTarea"]);
+    Route::get("allTareas",[TareasController::class,"allTareas"]);
 });
 
 Route::prefix('login')->group(function(){
