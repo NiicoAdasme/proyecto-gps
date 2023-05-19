@@ -6,18 +6,13 @@ use App\Traits\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SolucionIncidencia extends Model
+class Tarea extends Model
 {
     use HasFactory,Filterable;
 
-    protected $table = "solucion_incidencia";
+    protected $table = "tareas";
     protected $primaryKey = "id";
     protected $fillable = ["*"];
-
-    public function incidente()
-    {
-        return $this->belongsTo(Incidente::class,"inci_id");
-    }
 
     public function estado()
     {
@@ -29,8 +24,18 @@ class SolucionIncidencia extends Model
         return $this->belongsTo(Departamento::class,"depa_id");
     }
 
+    public function areaPlanta()
+    {
+        return $this->belongsTo(AreaPlanta::class,"arpl_id");
+    }
+
     public function usuario()
     {
         return $this->belongsTo(Usuario::class,"usua_id");
+    }
+
+    public function tareaReprogramada()
+    {
+        return $this->hasMany(TareaReprogramada::class,"tare_id");
     }
 }
