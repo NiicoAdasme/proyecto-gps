@@ -34,8 +34,6 @@ const Table = ({ columnas, filas, acciones }) => {
     usePagination
   );
 
-  console.log(state);
-
   const { pageIndex, pageSize } = state;
 
   return (
