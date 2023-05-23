@@ -22,5 +22,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AreaPlantaSeeder::class);
         $this->call(CatalogoFallaSeeder::class);
         $this->call(UsuarioSeeder::class);
+        $this->call(TareaSeeder::class);
     }
 }
