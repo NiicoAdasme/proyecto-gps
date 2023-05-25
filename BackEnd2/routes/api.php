@@ -4,6 +4,7 @@ use App\Http\Controllers\Catalogo\CatalogoMensajeController;
 use App\Http\Controllers\Incidente\IncidenteController;
 use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\Usuario\UsuarioController;
+use App\Http\Controllers\Calendario\CalendarioController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,4 +38,13 @@ Route::prefix('incidente')->group(function(){
 
 Route::prefix('login')->group(function(){
     Route::post("login",[LoginController::class,"login"]);
+});
+
+Route::prefix('calendario')->group(function(){
+    Route::get('getcalendario', [CalendarioController::class, 'getCalendario']);
+    Route::get('getcalendario', [CalendarioController::class, 'getCalendarioByid']);
+    Route::post('postcalendario', [CalendarioController::class, 'postDatos']);
+    Route::put('editcalendario/{id}', [CalendarioController::class, 'editDatos']);
+    Route::delete('deletecalendario/{id}', [CalendarioController::class, 'deleteDatos']);
+    Route::get('/reagendamiento', [CalendarioController::class, 'reagendamiento']);
 });

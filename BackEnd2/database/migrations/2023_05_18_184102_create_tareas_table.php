@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('tareas', function (Blueprint $table) {
             $table->id();
+            $table->string("tare_titulo", 100);
             $table->string("tare_descripcion",100);
             $table->date("tare_fecha_inicio");
             $table->date("tare_fecha_fin");
-            
+            $table->string("tare_color", 100);
 
             $table->foreignId("esta_id")->nullable()->constrained("estado")->cascadeOnDelete()->nullOnDelete();
             $table->foreignId("arpl_id")->nullable()->constrained("area_planta")->cascadeOnDelete()->nullOnDelete();
