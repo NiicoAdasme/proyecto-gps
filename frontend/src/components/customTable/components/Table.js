@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { useTable, usePagination } from "react-table";
-import { GlobalFilter } from "./Filters";
-const Table = ({ columnas, filas, acciones }) => {
+const Table = ({ columnas, filas, acciones, boton = true , onBoton}) => {
   const columns = useMemo(() => columnas, []);
   const data = useMemo(() => filas, []);
 
@@ -39,17 +38,26 @@ const Table = ({ columnas, filas, acciones }) => {
   return (
     <>
       <div className="overflow-x-auto space-y-6">
-        <select
-          className="border border-gray-300 rounded-md px-4 py-2 font-bold"
-          value={pageSize}
-          onChange={(e) => setPageSize(Number(e.target.value))}
-        >
-          {[5, 10, 25].map((pageSize) => (
-            <option className="font-bold" key={pageSize} value={pageSize}>
-              Mostrar {pageSize}
-            </option>
-          ))}
-        </select>
+        <div className="flex justify-between">
+          <select
+            className="border border-gray-300 rounded-md px-4 py-2 font-bold"
+            value={pageSize}
+            onChange={(e) => setPageSize(Number(e.target.value))}
+          >
+            {[5, 10, 25].map((pageSize) => (
+              <option className="font-bold" key={pageSize} value={pageSize}>
+                Mostrar {pageSize}
+              </option>
+            ))}
+          </select>
+          {boton ? (
+            <button className="bg-paletaAzul3 text-white font-bold py-2 px-4 rounded-full" onClick={onBoton}>
+              +
+            </button>
+          ) : (
+            <></>
+          )}
+        </div>
         <table
           className="min-w-full divide-y divide-gray-200"
           {...getTableProps()}
@@ -114,7 +122,7 @@ const Table = ({ columnas, filas, acciones }) => {
             })}
           </tbody>
         </table>
-        <div >
+        <div>
           <div className="flex justify-center list-none space-x-2">
             <button
               className="px-4 py-2 bg-gray-300 text-gray-600 rounded-md"
@@ -136,20 +144,32 @@ const Table = ({ columnas, filas, acciones }) => {
               onClick={() => previousPage()}
               disabled={!canPreviousPage}
             >
-              {pageIndex != 0 ? (pageIndex != pageOptions.length ? pageIndex : pageIndex - 2): pageIndex + 1}
+              {pageIndex != 0
+                ? pageIndex != pageOptions.length
+                  ? pageIndex
+                  : pageIndex - 2
+                : pageIndex + 1}
             </button>
             <button
               className="max-md:hidden px-4 py-2 bg-gray-300 text-gray-600 rounded-md"
               onClick={() => previousPage()}
             >
-              {pageIndex != 0 ? (pageIndex != pageOptions.length ? pageIndex + 1: pageIndex - 1): pageIndex + 2}
+              {pageIndex != 0
+                ? pageIndex != pageOptions.length
+                  ? pageIndex + 1
+                  : pageIndex - 1
+                : pageIndex + 2}
             </button>
             <button
               className="max-md:hidden px-4 py-2 bg-gray-300 text-gray-600 rounded-md"
               onClick={() => previousPage()}
               disabled={!canNextPage}
             >
-              {pageIndex != 0 ? (pageIndex != pageOptions.length ? pageIndex - 1: pageIndex - 2): pageIndex + 3}
+              {pageIndex != 0
+                ? pageIndex != pageOptions.length
+                  ? pageIndex - 1
+                  : pageIndex - 2
+                : pageIndex + 3}
             </button>
 
             <button

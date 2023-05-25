@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { setLoading } from "../../../queries/Loading/setLoading";
 
 const Filters = ({ filtros, query , onFiltrosChange}) => {

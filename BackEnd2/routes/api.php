@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Catalogo\CatalogoMensajeController;
+use App\Http\Controllers\Incidente\IncidenteController;
 use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\Usuario\UsuarioController;
 use Illuminate\Http\Request;
@@ -28,6 +29,10 @@ Route::prefix('catalogo')->group(function(){
 
 Route::prefix('usuarios')->group(function(){
     Route::post("datosUsuario",[UsuarioController::class,"datosUsuarios"]);
+});
+
+Route::prefix('incidente')->group(function(){
+    Route::post("incidenciaTable",[IncidenteController::class,"incidenciaTable"]);
 });
 
 Route::prefix('login')->group(function(){

@@ -13,6 +13,7 @@ import useLoading from "./queries/Loading/useLoading";
 import LoadingMask from "./queries/Loading/LoadingMask";
 import Login from "./page/Login/Login";
 import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const LinkTecnico = [
