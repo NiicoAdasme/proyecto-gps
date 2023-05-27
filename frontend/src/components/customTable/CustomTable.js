@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Bars } from "react-loader-spinner";
 import Table from "./components/Table";
 import Filters from "./components/Filters";
 
-const CustomTable = ({ titulo, columnas, filtro, query }) => {
+const CustomTable = ({ titulo, columnas, filtro, query , boton , onBoton}) => {
   const [filas, setFilas] = useState(null);
   const handleFiltrosChange = (nuevasFilas) => {
     setFilas(nuevasFilas);
@@ -21,7 +20,7 @@ const CustomTable = ({ titulo, columnas, filtro, query }) => {
             onFiltrosChange={handleFiltrosChange}
           />
         </div>
-        {filas ? <Table columnas={columnas} filas={filas.respuesta} /> : <></>}
+        {filas ? <Table columnas={columnas} filas={filas.respuesta}  boton={boton} onBoton={onBoton}/> : <></>}
       </div>
     </>
   );

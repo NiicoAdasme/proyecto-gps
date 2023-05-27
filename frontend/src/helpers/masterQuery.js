@@ -24,11 +24,10 @@ const masterQuery = async (
       .then((response) => {
         if (response.success.success) {
           setLoading(false);
-          //TODO arreglar toast
-          toast.success("Success Notification !", {
+          toast.success(response.success.mensaje, {
             position: toast.POSITION.TOP_RIGHT,
           });
-          return response;
+          return response.success;
         }
         setLoading(false);
         Swal.fire({

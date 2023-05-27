@@ -27,4 +27,4 @@ const Filters = [
   },
 ];
 
-export { Columnas, Filters };
+export { Columnas, Filters};
