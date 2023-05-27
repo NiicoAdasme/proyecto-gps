@@ -14,11 +14,13 @@ import LoadingMask from './queries/Loading/LoadingMask'
 import Login from './page/Login/Login'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { CalendarScreen } from './page/Tecnico/calendar/CalendarScreen'
 
 function App() {
   const LinkTecnico = [
     { name: 'Incidencias', link: '/incidencias' },
     { name: 'Tareas', link: '/tareas' },
+    { name: 'Calendario', link: '/calendario' },
   ]
 
   const [isLogged, setIsLogged] = useState(true);
@@ -35,6 +37,7 @@ function App() {
         <Route path='incidencias' element={<IncidenciasTecnico />} />
         <Route path='tareas' element={<TareasTecnico />} />
         <Route path='miPerfil' element={<></>} />
+        <Route path='calendario' element={<CalendarScreen/>} />
       </Route>
     )
   )
