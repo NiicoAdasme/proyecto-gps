@@ -1,19 +1,16 @@
 import React, { useState } from 'react'
 import {
-  Route,
-  createBrowserRouter,
-  createRoutesFromElements,
   RouterProvider
 } from 'react-router-dom'
-import { NavBar } from './components'
-import IncidenciasTecnico from './page/Tecnico/Incidencias'
 import './GlobalCSS.css'
-import TareasTecnico from './page/Tecnico/Tareas/TareasTecnico'
 import useLoading from './queries/Loading/useLoading'
 import LoadingMask from './queries/Loading/LoadingMask'
-import Login from './page/Login/Login'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import {routerLoged,router} from './page/pageRoutes';
+
+function App() {
+=======
 import { CalendarScreen } from './page/Tecnico/calendar/CalendarScreen'
 
 function App() {
@@ -24,7 +21,6 @@ function App() {
   ]
 
   const [isLogged, setIsLogged] = useState(true);
-
   const loading = useLoading().data;
 
   const router = createBrowserRouter(
@@ -41,6 +37,7 @@ function App() {
       </Route>
     )
   )
+
 
   return (
     <>
