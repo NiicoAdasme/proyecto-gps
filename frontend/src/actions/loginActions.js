@@ -1,13 +1,12 @@
 export const login = (userData) => {
-    return {
-      type: 'LOGIN',
-      payload: userData,
-    };
+  return {
+    type: 'LOGIN',
+    payload: userData,
   };
-  
-  export const logout = () => {
-    return {
-      type: 'LOGOUT',
-    };
+};
+
+export const logout = () => {
+  return {
+    type: 'LOGOUT',
   };
-  
+};

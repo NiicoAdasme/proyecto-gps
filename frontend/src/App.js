@@ -7,9 +7,11 @@ import useLoading from './queries/Loading/useLoading'
 import LoadingMask from './queries/Loading/LoadingMask'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import {routerLoged,router} from './page/pageRoutes';
+import { routerLoged, router } from './page/pageRoutes';
+import { CalendarScreen } from './page/Tecnico/calendar/CalendarScreen'
 
 function App() {
+
   const [isLogged, setIsLogged] = useState(true);
   const loading = useLoading().data;
 
