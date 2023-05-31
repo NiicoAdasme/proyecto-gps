@@ -5,7 +5,7 @@ import {Login,TareasTecnico,IncidenciasTecnico} from "./index";
 
 const LinkTecnico = [
   { name: 'Incidencias', link: '/incidencias' },
-  { name: 'Tareas', link: '/tareas' }
+  { name: 'Tareas', link: '/tareas' },
 ]
 
 const routerLoged = createBrowserRouter(

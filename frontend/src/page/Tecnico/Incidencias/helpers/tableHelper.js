@@ -15,6 +15,10 @@ const Columnas = [
     Header: "Rut",
     accessor: "usua_rut",
   },
+  {
+    Header: "Acciones",
+    accessor: "acciones"
+  }
 ];
 
 const Filters = [
@@ -25,6 +29,11 @@ const Filters = [
     placeholder: "Manuel",
     opciones: [{ id: 1, label: "opcion1" }],
   },
+  {
+    nombre: "usua_fecha",
+    tipo: "checkbox",
+    titulo: "Fecha Nacimiento",
+  }
 ];
 
 export { Columnas, Filters};

@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import Table from "./components/Table";
 import Filters from "./components/Filters";
 
-const CustomTable = ({ titulo, columnas, filtro, query , boton , onBoton}) => {
+const CustomTable = ({ titulo, columnas, filtro, query ,acciones, boton , onBoton}) => {
   const [filas, setFilas] = useState(null);
   const handleFiltrosChange = (nuevasFilas) => {
     setFilas(nuevasFilas);
   };
-  const acciones = [{ id: 1, label: "Ver Detalle" }];
 
   return (
     <>
@@ -20,7 +19,7 @@ const CustomTable = ({ titulo, columnas, filtro, query , boton , onBoton}) => {
             onFiltrosChange={handleFiltrosChange}
           />
         </div>
-        {filas ? <Table columnas={columnas} filas={filas.respuesta}  boton={boton} onBoton={onBoton}/> : <></>}
+        {filas ? <Table columnas={columnas} filas={filas.respuesta} acciones={acciones} boton={boton} onBoton={onBoton}/> : <></>}
       </div>
     </>
   );

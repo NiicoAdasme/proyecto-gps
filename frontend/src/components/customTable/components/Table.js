@@ -1,14 +1,10 @@
 import React, { useMemo, useState } from "react";
 import { useTable, usePagination } from "react-table";
-const Table = ({ columnas, filas, acciones, boton = true , onBoton}) => {
+import Actions from "./Actions";
+const Table = ({ columnas, filas, acciones, boton = true, onBoton }) => {
   const columns = useMemo(() => columnas, []);
   const data = useMemo(() => filas, []);
-
-  const [visibleActions, setVisibleActions] = useState(false);
-
-  const handleOpcionClick = () => {
-    setVisibleActions(!visibleActions);
-  };
+  const actions = useMemo(() => acciones, []);
 
   const {
     getTableProps,
@@ -51,7 +47,10 @@ const Table = ({ columnas, filas, acciones, boton = true , onBoton}) => {
             ))}
           </select>
           {boton ? (
-            <button className="bg-paletaAzul3 text-white font-bold py-2 px-4 rounded-full" onClick={onBoton}>
+            <button
+              className="bg-paletaAzul3 text-white font-bold py-2 px-4 rounded-full"
+              onClick={onBoton}
+            >
               +
             </button>
           ) : (
@@ -91,32 +90,14 @@ const Table = ({ columnas, filas, acciones, boton = true , onBoton}) => {
                         className="px-6 py-4 whitespace-nowrap text-sm text-black font-bold"
                         {...cell.getCellProps()}
                       >
-                        {cell.render("Cell")}
+                        {cell.column.id === "acciones" ? (
+                          <Actions acciones={actions} />
+                        ) : (
+                          cell.render("Cell")
+                        )}
                       </td>
                     );
                   })}
-                  {acciones ? (
-                    <td>
-                      <button
-                        onClick={handleOpcionClick}
-                        className="py-2 px-4 rounded-md font-bold bg-gray-200 hover:bg-gray-300"
-                      >
-                        Opciones
-                      </button>
-                      {visibleActions && (
-                        <div className="mt-2">
-                          {acciones.map((accion) => {
-                            <button key={accion.id} className="py-2 px-4">
-                              {accion.label}
-                            </button>;
-                          })}
-                          ;
-                        </div>
-                      )}
-                    </td>
-                  ) : (
-                    <></>
-                  )}
                 </tr>
               );
             })}
@@ -125,14 +106,14 @@ const Table = ({ columnas, filas, acciones, boton = true , onBoton}) => {
         <div>
           <div className="flex justify-center list-none space-x-2">
             <button
-              className="px-4 py-2 bg-gray-300 text-gray-600 rounded-md"
+              className="px-4 py-2 bg-gray-300 text-gray-600 rounded-md font-bold"
               onClick={() => gotoPage(0)}
               disabled={!canPreviousPage}
             >
               {"<<"}
             </button>
             <button
-              className="px-4 py-2 bg-gray-300 text-gray-600 rounded-md"
+              className="px-4 py-2 bg-gray-300 text-gray-600 rounded-md font-bold"
               onClick={() => previousPage()}
               disabled={!canPreviousPage}
             >
@@ -140,7 +121,7 @@ const Table = ({ columnas, filas, acciones, boton = true , onBoton}) => {
             </button>
 
             <button
-              className="max-md:hidden px-4 py-2 bg-gray-300 text-gray-600 rounded-md"
+              className="max-md:hidden px-4 py-2 bg-gray-300 text-gray-600 rounded-md font-bold"
               onClick={() => previousPage()}
               disabled={!canPreviousPage}
             >
@@ -151,7 +132,7 @@ const Table = ({ columnas, filas, acciones, boton = true , onBoton}) => {
                 : pageIndex + 1}
             </button>
             <button
-              className="max-md:hidden px-4 py-2 bg-gray-300 text-gray-600 rounded-md"
+              className="max-md:hidden px-4 py-2 bg-gray-300 text-gray-600 rounded-md font-bold"
               onClick={() => previousPage()}
             >
               {pageIndex != 0
@@ -161,7 +142,7 @@ const Table = ({ columnas, filas, acciones, boton = true , onBoton}) => {
                 : pageIndex + 2}
             </button>
             <button
-              className="max-md:hidden px-4 py-2 bg-gray-300 text-gray-600 rounded-md"
+              className="max-md:hidden px-4 py-2 bg-gray-300 text-gray-600 rounded-md font-bold"
               onClick={() => previousPage()}
               disabled={!canNextPage}
             >
@@ -173,21 +154,21 @@ const Table = ({ columnas, filas, acciones, boton = true , onBoton}) => {
             </button>
 
             <button
-              className="px-4 py-2 bg-gray-300 text-gray-600 rounded-md"
+              className="px-4 py-2 bg-gray-300 text-gray-600 rounded-md font-bold"
               onClick={() => nextPage()}
               disabled={!canNextPage}
             >
               Siguiete
             </button>
             <button
-              className="px-4 py-2 bg-gray-300 text-gray-600 rounded-md"
+              className="px-4 py-2 bg-gray-300 text-gray-600 rounded-md font-bold"
               onClick={() => gotoPage(pageCount - 1)}
               disabled={!canNextPage}
             >
               {">>"}
             </button>
           </div>
-          <span className="items-center flex justify-center px-4 py-2 text-gray-600 rounded-md">
+          <span className="items-center flex justify-center px-4 py-2 text-gray-600 rounded-md font-bold">
             <strong>
               {pageIndex + 1} de {pageOptions.length}
             </strong>{" "}
