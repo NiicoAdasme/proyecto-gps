@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('catalogo_mensaje', function (Blueprint $table) {
             $table->id();
             $table->string("came_mensaje");
-            $table->string("came_codigo");
+            $table->integer("came_codigo");
             $table->string("came_funcion");
             $table->timestamps();
         });
