@@ -13,4 +13,19 @@ class Estado extends Model
     protected $table = "estado";
     protected $primaryKey = "id";
     protected $fillable = ["*"];
+
+    public function incidente()
+    {
+        return $this->hasMany(Incidente::class,"esta_id");
+    }
+
+    public function tarea()
+    {
+        return $this->hasMany(Tarea::class,"esta_id");
+    }
+
+    public function solucionIncidencia()
+    {
+        return $this->hasMany(solucionIncidencia::class,"esta_id");
+    }
 }

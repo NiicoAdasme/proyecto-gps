@@ -43,4 +43,9 @@ class Incidente extends Model
     {
         return $this->belongsTo(Incidente::class,"incidencia_padre_id");
     }
+
+    public function solucionIncidencia()
+    {
+        return $this->hasMany(SolucionIncidencia::class,"inci_id");
+    }
 }

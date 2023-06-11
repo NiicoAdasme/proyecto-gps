@@ -1,9 +1,18 @@
-import React from 'react'
+import React,{useState} from "react";
+import { CustomModal } from "../../../components";
 
 const TareasTecnico = () => {
-  return (
-    <div>TareasTecnico</div>
-  )
-}
+  const [isModal, setisModal] = useState(false)
+  const handleOpenModal = () => {
+    setisModal(!isModal);
+  };
 
-export default TareasTecnico
+  return (
+    <>
+      <button onClick={handleOpenModal}>prender</button>
+      <CustomModal isOpen={isModal} onClose={handleOpenModal} children={<div>hola</div>} />
+    </>
+  );
+};
+
+export default TareasTecnico;

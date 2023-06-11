@@ -13,4 +13,9 @@ class Turno extends Model
     protected $table = "turno";
     protected $primaryKey = "id";
     protected $fillable = ["*"];
+
+    public function incidente()
+    {   
+        return $this->hasMany(Incidente::class,"inci_id");
+    }
 }

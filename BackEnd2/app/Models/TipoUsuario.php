@@ -13,4 +13,9 @@ class TipoUsuario extends Model
     protected $table = "tipo_usuario";
     protected $primaryKey = "id";
     protected $fillable = ["*"];
+
+    public function usuario()
+    {   
+        return $this->hasMany(Usuario::class,"tius_id");
+    }
 }

@@ -1,14 +1,12 @@
 import React, { useState } from "react";
-import { Bars } from "react-loader-spinner";
 import Table from "./components/Table";
 import Filters from "./components/Filters";
 
-const CustomTable = ({ titulo, columnas, filtro, query }) => {
+const CustomTable = ({ titulo, columnas, filtro, query ,acciones, boton , onBoton}) => {
   const [filas, setFilas] = useState(null);
   const handleFiltrosChange = (nuevasFilas) => {
     setFilas(nuevasFilas);
   };
-  const acciones = [{ id: 1, label: "Ver Detalle" }];
 
   return (
     <>
@@ -21,7 +19,7 @@ const CustomTable = ({ titulo, columnas, filtro, query }) => {
             onFiltrosChange={handleFiltrosChange}
           />
         </div>
-        {filas ? <Table columnas={columnas} filas={filas.respuesta} /> : <></>}
+        {filas ? <Table columnas={columnas} filas={filas.respuesta} acciones={acciones} boton={boton} onBoton={onBoton}/> : <></>}
       </div>
     </>
   );
