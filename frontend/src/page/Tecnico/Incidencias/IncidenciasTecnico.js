@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import { Columnas, Filters } from "./helpers/tableHelper";
+import { Columnas, Filters, Acciones } from "./helpers/tableHelper";
 import { CustomModal, CustomTable } from "../../../components";
 import ModalIncidenciaHelper from "./helpers/ModalIncidenciaHelper";
+import { baseUrl } from "../../../queries/apisUrl";
 
 function IncidenciasTecnico() {
-  const queryUrl = { url: "http://127.0.0.1:8000/api/usuarios/datosUsuario" };
   const [openModal, setOpenModal] = useState(false);
-  const acciones = [
-    { id: 1, label: "Ver Detalle" },
-    { id: 2, label: "Sub Ticket" },
-  ];
+  const query = {
+    url: baseUrl + "api/incidente/incidenciaTable",
+    type: "post"
+  };
+
   const handleOpenModal = () => {
     setOpenModal(!openModal);
   };
@@ -20,8 +21,8 @@ function IncidenciasTecnico() {
         titulo={"Incidencias"}
         columnas={Columnas}
         filtro={Filters}
-        query={queryUrl}
-        acciones={acciones}
+        query={query}
+        acciones={Acciones}
         boton={true}
         onBoton={handleOpenModal}
       />

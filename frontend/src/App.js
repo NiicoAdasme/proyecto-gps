@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   RouterProvider
 } from 'react-router-dom'
@@ -8,18 +8,20 @@ import LoadingMask from './queries/Loading/LoadingMask'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { routerLoged, router } from './page/pageRoutes';
-import { CalendarScreen } from './page/Tecnico/calendar/CalendarScreen'
+import { useSelector } from 'react-redux'
 
 function App() {
 
-  const [isLogged, setIsLogged] = useState(true);
+  const isLogged = useSelector((state) => state.login);
   const loading = useLoading().data;
+
+  console.log(isLogged.isLogged);
 
   return (
     <>
       <ToastContainer />
       <>{loading && loading.isLoading ? <LoadingMask /> : <></>}</>
-      {isLogged ? (
+      {isLogged.isLogged ? (
         <RouterProvider router={routerLoged} />
       ) : (
         <RouterProvider router={router} />

@@ -1,39 +1,53 @@
 const Columnas = [
   {
-    Header: "Nombre",
-    accessor: "usua_nombre",
+    Header: "Area planta",
+    accessor: "areaPlanta",
   },
   {
-    Header: "Apellido",
-    accessor: "usua_apellido_p",
+    Header: "Turno",
+    accessor: "turno",
   },
   {
-    Header: "Correo",
-    accessor: "usua_correo",
+    Header: "Usuario",
+    accessor: "usuario",
   },
   {
-    Header: "Rut",
-    accessor: "usua_rut",
+    Header: "Departamento",
+    accessor: "departamento",
+  },
+  {
+    Header: "Estado",
+    accessor: "estado",
   },
   {
     Header: "Acciones",
-    accessor: "acciones"
-  }
+    accessor: "acciones",
+  },
 ];
 
 const Filters = [
   {
-    nombre: "usua_nombre",
+    nombre: "esta_id",
     tipo: "select",
-    titulo: "Nombre",
-    placeholder: "Manuel",
+    titulo: "Estado",
+    placeholder: "Procesado",
     opciones: [{ id: 1, label: "opcion1" }],
   },
   {
     nombre: "usua_fecha",
     tipo: "checkbox",
     titulo: "Fecha Nacimiento",
+  },
+  {
+    nombre: "turn_id",
+    tipo: "date",
+    titulo: "Fecha creación"
   }
 ];
 
-export { Columnas, Filters};
+const Acciones = [
+  { id: 1, label: "Ver Detalle", onClick : (data) => {console.log(data)}},
+  { id: 2, label: "Sub Ticket" },
+];
+
+export { Columnas, Filters, Acciones };

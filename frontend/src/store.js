@@ -5,7 +5,7 @@ import { calendarReducer } from './reducers/calendarReducer';
 
 const store = configureStore({
   reducer: {
-    auth: loginReducer,
+    login: loginReducer,
     ui: uiReducer,
     calendar: calendarReducer
   },

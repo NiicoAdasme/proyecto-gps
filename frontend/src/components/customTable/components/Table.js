@@ -1,9 +1,10 @@
 import React, { useMemo, useState } from "react";
 import { useTable, usePagination } from "react-table";
 import Actions from "./Actions";
+import Enumerador from "./Enumerador";
 const Table = ({ columnas, filas, acciones, boton = true, onBoton }) => {
   const columns = useMemo(() => columnas, []);
-  const data = useMemo(() => filas, []);
+  const data = useMemo(() => filas.data, []);
   const actions = useMemo(() => acciones, []);
 
   const {
@@ -30,7 +31,6 @@ const Table = ({ columnas, filas, acciones, boton = true, onBoton }) => {
   );
 
   const { pageIndex, pageSize } = state;
-
   return (
     <>
       <div className="overflow-x-auto space-y-6">
@@ -91,7 +91,10 @@ const Table = ({ columnas, filas, acciones, boton = true, onBoton }) => {
                         {...cell.getCellProps()}
                       >
                         {cell.column.id === "acciones" ? (
-                          <Actions acciones={actions} />
+                          <Actions
+                            acciones={actions}
+                            idFila={row.original?.id}
+                          />
                         ) : (
                           cell.render("Cell")
                         )}
@@ -103,78 +106,8 @@ const Table = ({ columnas, filas, acciones, boton = true, onBoton }) => {
             })}
           </tbody>
         </table>
-        <div>
-          <div className="flex justify-center list-none space-x-2">
-            <button
-              className="px-4 py-2 bg-gray-300 text-gray-600 rounded-md font-bold"
-              onClick={() => gotoPage(0)}
-              disabled={!canPreviousPage}
-            >
-              {"<<"}
-            </button>
-            <button
-              className="px-4 py-2 bg-gray-300 text-gray-600 rounded-md font-bold"
-              onClick={() => previousPage()}
-              disabled={!canPreviousPage}
-            >
-              Atras{" "}
-            </button>
-
-            <button
-              className="max-md:hidden px-4 py-2 bg-gray-300 text-gray-600 rounded-md font-bold"
-              onClick={() => previousPage()}
-              disabled={!canPreviousPage}
-            >
-              {pageIndex != 0
-                ? pageIndex != pageOptions.length
-                  ? pageIndex
-                  : pageIndex - 2
-                : pageIndex + 1}
-            </button>
-            <button
-              className="max-md:hidden px-4 py-2 bg-gray-300 text-gray-600 rounded-md font-bold"
-              onClick={() => previousPage()}
-            >
-              {pageIndex != 0
-                ? pageIndex != pageOptions.length
-                  ? pageIndex + 1
-                  : pageIndex - 1
-                : pageIndex + 2}
-            </button>
-            <button
-              className="max-md:hidden px-4 py-2 bg-gray-300 text-gray-600 rounded-md font-bold"
-              onClick={() => previousPage()}
-              disabled={!canNextPage}
-            >
-              {pageIndex != 0
-                ? pageIndex != pageOptions.length
-                  ? pageIndex - 1
-                  : pageIndex - 2
-                : pageIndex + 3}
-            </button>
-
-            <button
-              className="px-4 py-2 bg-gray-300 text-gray-600 rounded-md font-bold"
-              onClick={() => nextPage()}
-              disabled={!canNextPage}
-            >
-              Siguiete
-            </button>
-            <button
-              className="px-4 py-2 bg-gray-300 text-gray-600 rounded-md font-bold"
-              onClick={() => gotoPage(pageCount - 1)}
-              disabled={!canNextPage}
-            >
-              {">>"}
-            </button>
-          </div>
-          <span className="items-center flex justify-center px-4 py-2 text-gray-600 rounded-md font-bold">
-            <strong>
-              {pageIndex + 1} de {pageOptions.length}
-            </strong>{" "}
-          </span>
-        </div>
       </div>
+      <Enumerador data={filas} />
     </>
   );
 };
