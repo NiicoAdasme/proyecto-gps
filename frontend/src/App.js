@@ -15,8 +15,6 @@ function App() {
   const isLogged = useSelector((state) => state.login);
   const loading = useLoading().data;
 
-  console.log(isLogged.isLogged);
-
   return (
     <>
       <ToastContainer />

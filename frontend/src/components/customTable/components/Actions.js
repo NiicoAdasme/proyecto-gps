@@ -5,7 +5,7 @@ import { Transition } from "@headlessui/react";
 const Dropdown = forwardRef((props, ref) => (
   <div
     ref={ref}
-    className="absolute right-0 mt-2 py-2 w-32 bg-white rounded shadow-lg z-50"
+    className="absolute right-0 mt-2 py-2 w-32 bg-white rounded shadow-lg z-50 transparent"
   >
     {props.acciones.map((accion, index) => (
       <button
@@ -54,7 +54,7 @@ const Actions = ({ acciones, idFila }) => {
   return (
     <>
       {acciones !== false && (
-        <div className="relative inline-block" ref={actionsRef}>
+        <div className="absolute inline-block" ref={actionsRef}>
           <button onClick={toggleDropdown}>
             <MoreVertIcon />
           </button>
