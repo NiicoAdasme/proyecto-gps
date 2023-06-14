@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('incidente', function (Blueprint $table) {
             $table->id();
             $table->string("inci_observacion",100);
-
+            
             $table->foreignId("esta_id")->nullable()->constrained("estado")->cascadeOnDelete()->nullOnDelete();
             $table->foreignId("turn_id")->nullable()->constrained("turno")->cascadeOnDelete()->nullOnDelete();
             $table->foreignId("arpl_id")->nullable()->constrained("area_planta")->cascadeOnDelete()->nullOnDelete();

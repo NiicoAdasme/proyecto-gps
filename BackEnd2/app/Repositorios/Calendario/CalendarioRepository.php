@@ -17,62 +17,91 @@ class CalendarioRepository
         try {
             $tarea = Tarea::all();
 
-            if($tarea) return $this->successResponse($tarea,"se encontro",200);
-            
-            return $this->errorResponse("Datos ingresados son inválidos",409);
+            if ($tarea) return $this->successResponse($tarea, "se encontro", 200);
+
+            return $this->errorResponse("Datos ingresados son inválidos", 409);
         } catch (Exception $ex) {
-            return $this->errorResponse("Error al procesar los datos",409,$ex,__METHOD__);
+            return $this->errorResponse("Error al procesar los datos", 409, $ex, __METHOD__);
         }
     }
 
     public function getCalendarioByid($request)
     {
-        $tarea = Tarea::select("id","tare_descripcion", "titulo", "tare_fecha_inicio", "tare_fecha_fin", "color", "esta_id", "arpl_id", "usua_id", "depa_id")->where("id",$request->id)->first();
+        $tarea = Tarea::select(
+            "id",
+            "tare_descripcion",
+            "titulo",
+            "tare_fecha_inicio",
+            "tare_fecha_fin",
+            "color",
+            "esta_id",
+            "arpl_id",
+            "usua_id",
+            "depa_id"
+        )->where("id", $request->id)
+            ->first();
 
-        if($tarea) return $this->successResponse($tarea,"se encontro",200);
+        if ($tarea) return $this->successResponse($tarea, "se encontro", 200);
 
-        return $this->errorResponse("Datos ingresados son inválidos",409);
+        return $this->errorResponse("Datos ingresados son inválidos", 409);
     }
 
     public function postDatos($request)
     {
-        try{
-            return $this->successResponse($this->ingresarDatos($request),"se ingreso correctamente",200);
-        }catch(Exception $ex){
-            return $this->errorResponse("Error al procesar los datos",409,$ex,__METHOD__);
-        }  
+        try {
+            return $this->successResponse($this->ingresarDatos($request), "se ingreso correctamente", 200);
+        } catch (Exception $ex) {
+            return $this->errorResponse("Error al procesar los datos", 409, $ex, __METHOD__);
+        }
     }
 
     public function editDatos($request)
     {
-        try{
+        try {
             $tarea = Tarea::find($request->id);
-            return $this->successResponse($this->ingresarDatos($request,$tarea),"se edito correctamente",200);
-        }catch(Exception $ex){
-            return $this->errorResponse("Error al procesar los datos",409,$ex,__METHOD__);
+            return $this->successResponse($this->ingresarDatos($request, $tarea), "se edito correctamente", 200);
+        } catch (Exception $ex) {
+            return $this->errorResponse("Error al procesar los datos", 409, $ex, __METHOD__);
         }
     }
 
     public function deleteDatos($request)
     {
-        try{
+        try {
             $tarea = Tarea::find($request->id);
             $tarea->delete();
-            return $this->successResponse($tarea,"se borro correctamente",200);
-        }catch(Exception $ex){
-            return $this->errorResponse("Error al procesar los datos",409,$ex,__METHOD__);
+            return $this->successResponse($tarea, "se borro correctamente", 200);
+        } catch (Exception $ex) {
+            return $this->errorResponse("Error al procesar los datos", 409, $ex, __METHOD__);
         }
     }
 
     public function reagendamiento($request)
     {
-        try{
-            $tarea = Tarea::select("id", "tare_titulo", "tare_descripcion", "tare_fecha_inicio", "tare_fecha_fin", "tare_color", "depa_id", "arpl_id", "esta_id", "usua_id")
-            ->with("tareaReprogramada:id,tare_id", "departamento:id,depa_nombre", "areaPlanta:id,arpl_nombre", "estado:id,esta_nombre", "usuario:id,usua_nombre")
-            ->get();
-            return $this->successResponse($tarea,"se ingreso correctamente",200);
-        }catch(Exception $ex){
-            return $this->errorResponse("Error al procesar los datos",409,$ex,__METHOD__);
+        try {
+            $tarea = Tarea::select(
+                "id",
+                "tare_titulo",
+                "tare_descripcion",
+                "tare_fecha_inicio",
+                "tare_fecha_fin",
+                "tare_color",
+                "depa_id",
+                "arpl_id",
+                "esta_id",
+                "usua_id"
+            )
+                ->with(
+                    "tareaReprogramada:id,tare_id",
+                    "departamento:id,depa_nombre",
+                    "areaPlanta:id,arpl_nombre",
+                    "estado:id,esta_nombre",
+                    "usuario:id,usua_nombre"
+                )
+                ->get();
+            return $this->successResponse($tarea, "se ingreso correctamente", 200);
+        } catch (Exception $ex) {
+            return $this->errorResponse("Error al procesar los datos", 409, $ex, __METHOD__);
         }
     }
 

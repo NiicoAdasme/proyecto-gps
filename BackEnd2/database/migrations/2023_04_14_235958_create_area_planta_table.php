@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('area_planta', function (Blueprint $table) {
             $table->id();
-            $table->string("arpl_codigo",100);
+            $table->integer("arpl_codigo");
             $table->string("arpl_nombre",100);
 
             $table->foreignId("plan_id")->nullable()->constrained("planta")->cascadeOnDelete()->nullOnDelete();

@@ -23,6 +23,11 @@ class CatalogoMensajeSeeder extends Seeder
                 "came_mensaje" => "Datos ingresados incorrectos",
                 "came_codigo" => 2,
                 "came_funcion" => "/api/login/login",
+            ],
+            [
+                "came_mensaje" => "Incidencia creada correctamente",
+                "came_codigo" => 3,
+                "came_funcion" => "/api/incidente/crearIncidente"
             ]
         ];
 
