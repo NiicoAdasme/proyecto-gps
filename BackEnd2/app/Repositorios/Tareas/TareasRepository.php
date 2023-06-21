@@ -6,7 +6,7 @@ namespace App\Repositorios\Tareas;
 use App\Traits\ApiResponser;
 use Exception;
 use Illuminate\Support\Facades\Log;
-use App\Models\Tareas;
+use App\Models\Tarea;
 
 class TareasRepository
 {
@@ -22,14 +22,14 @@ class TareasRepository
     }
     public function allTareas($request) {
         try {
-            $data = Tareas :: select()->get();
+            $data = Tarea :: select()->get();
             return $this->successResponse($data, "Tareas listadas correctamente");
         } catch (Exception $ex) {
             return $this->errorResponse("",409,$ex,__METHOD__);
         }
     }
 
-    private function ingresarDatos($data, Tareas $tarea = new Tareas()){
+    private function ingresarDatos($data, Tarea $tarea = new Tarea()){
 
         $tarea->tare_descripcion = $data->tare_descripcion ?? $tarea->tare_descripcion;
         $tarea->tare_fecha_inicio = $data->tare_fecha_inicio ?? $tarea->tare_fecha_inicio;
