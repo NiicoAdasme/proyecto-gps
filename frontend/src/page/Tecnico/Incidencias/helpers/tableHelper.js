@@ -1,6 +1,6 @@
 const Columnas = [
   {
-    Header: "Area planta",
+    Header: "Área planta",
     accessor: "areaPlanta",
   },
   {

@@ -11,7 +11,7 @@ const Filters = ({ filtros, query, onFiltrosChange }) => {
   const handleFiltro = async () => {
     const response = await queryRequest.mutateAsync(inputValues);
     if (response.success) {
-      onFiltrosChange(response);
+      onFiltrosChange(response,inputValues);
     }
   };
 

@@ -1,11 +1,53 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { useTable, usePagination } from "react-table";
 import Actions from "./Actions";
 import Enumerador from "./Enumerador";
-const Table = ({ columnas, filas, acciones, boton = true, onBoton }) => {
+import { useMutation } from "react-query";
+import masterQuery from "../../../helpers/masterQuery";
+
+const Table = ({
+  columnas,
+  filas,
+  acciones,
+  payLoad,
+  url,
+  boton,
+  onBoton,
+}) => {
   const columns = useMemo(() => columnas, []);
-  const data = useMemo(() => filas.data, []);
+  const [data, setData] = useState(filas.data);
+  const [newFilas, setNewFilas] = useState(filas)
   const actions = useMemo(() => acciones, []);
+  const [params, setParams] = useState(payLoad);
+  const refreshQuery = useMutation((params) =>
+    masterQuery(url, params, "post")
+  );
+
+  useEffect(() => {
+    setParams(payLoad);
+  }, [payLoad]);
+
+  useEffect(() => {
+    setData(filas.data);
+    setNewFilas(filas);
+  }, [filas]);
+
+  const recarga = async (params) => {
+    const response = await refreshQuery.mutateAsync(params);
+    if (response.success) {
+      setData(response.respuesta.data);
+      setNewFilas(response.respuesta);
+    }
+  };
+
+  const handlePageChange = (page) => {
+    const pivote = { ...params, ["page"]: page };
+    setParams({
+      ...params,
+      ["page"]: page,
+    });
+    recarga(pivote);
+  };
 
   const {
     getTableProps,
@@ -35,7 +77,7 @@ const Table = ({ columnas, filas, acciones, boton = true, onBoton }) => {
     <>
       <div className="overflow-x-auto space-y-6">
         <div className="flex justify-between">
-          <select
+          {/* <select
             className="border border-gray-300 rounded-md px-4 py-2 font-bold"
             value={pageSize}
             onChange={(e) => setPageSize(Number(e.target.value))}
@@ -45,7 +87,7 @@ const Table = ({ columnas, filas, acciones, boton = true, onBoton }) => {
                 Mostrar {pageSize}
               </option>
             ))}
-          </select>
+          </select> */}
           {boton ? (
             <button
               className="bg-paletaAzul3 text-white font-bold py-2 px-4 rounded-full"
@@ -62,17 +104,17 @@ const Table = ({ columnas, filas, acciones, boton = true, onBoton }) => {
           {...getTableProps()}
         >
           <thead>
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
+            {headerGroups.map((headerGroup,index) => (
+              <tr {...headerGroup.getHeaderGroupProps()} key={index}>
+                {headerGroup.headers.map((column,index) => (
                   <th
+                  key={index}
                     className="px-6 py-3 bg-paletaAzul3 text-left text-xs font-bold text-white uppercase tracking-wider shadow-md"
                     {...column.getHeaderProps()}
                   >
                     {column.render("Header")}
                   </th>
                 ))}
-                ;
               </tr>
             ))}
           </thead>
@@ -84,9 +126,10 @@ const Table = ({ columnas, filas, acciones, boton = true, onBoton }) => {
               prepareRow(row);
               return (
                 <tr key={row.original.id} {...row.getRowProps()}>
-                  {row.cells.map((cell) => {
+                  {row.cells.map((cell, index) => {
                     return (
                       <td
+                      key={index}
                         className="px-6 py-4 whitespace-nowrap text-sm text-black font-bold"
                         {...cell.getCellProps()}
                       >
@@ -107,7 +150,7 @@ const Table = ({ columnas, filas, acciones, boton = true, onBoton }) => {
           </tbody>
         </table>
       </div>
-      <Enumerador data={filas} />
+      <Enumerador data={newFilas} handlePageChange={handlePageChange} />
     </>
   );
 };

@@ -11,6 +11,15 @@ function IncidenciasTecnico() {
     type: "post"
   };
 
+  const botones = [
+    {
+      title : "Guardar",
+      onClick : () => {
+        console.log("Guardó");
+      }
+    }
+  ]
+
   const handleOpenModal = () => {
     setOpenModal(!openModal);
   };
@@ -30,6 +39,7 @@ function IncidenciasTecnico() {
         isOpen={openModal}
         onClose={handleOpenModal}
         titulo={"Crear incidencia"}
+        buttons={botones}
       >
         <ModalIncidenciaHelper />
       </CustomModal>

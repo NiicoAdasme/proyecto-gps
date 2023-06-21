@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('catalogo_falla', function (Blueprint $table) {
             $table->id();
-            $table->string("cafa_codigo",100);
+            $table->integer("cafa_codigo")->nullable();
             $table->string("cafa_opcion",45);
             $table->string("cafa_descripcion",255)->nullable();
 
