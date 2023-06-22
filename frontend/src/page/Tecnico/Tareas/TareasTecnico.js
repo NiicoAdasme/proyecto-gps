@@ -56,7 +56,7 @@ const TareasTecnico = () => {
           <input
             type="text"
             value={tareaTitulo}
-            onChange={(e) => setTareaDescripcion(e.target.value)}
+            onChange={(e) => setTareaTitulo(e.target.value)}
           />
         </label>
         <br />
