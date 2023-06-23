@@ -5,6 +5,7 @@ use App\Http\Controllers\Incidente\IncidenteController;
 use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\Usuario\UsuarioController;
 use App\Http\Controllers\Calendario\CalendarioController;
+use App\Http\Controllers\EstadisticasController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

@@ -5,7 +5,6 @@ import "./NavBar.css";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SegmentIcon from "@mui/icons-material/Segment";
 
-
 const NavBar = ({ options }) => {
   const [isVisible, setIsVisible] = useState(false);
   const handleVisible = () => {
