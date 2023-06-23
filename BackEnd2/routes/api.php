@@ -5,6 +5,7 @@ use App\Http\Controllers\Incidente\IncidenteController;
 use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\Usuario\UsuarioController;
 use App\Http\Controllers\Calendario\CalendarioController;
+use App\Http\Controllers\Estadistica\EstadisticaController;
 use App\Models\Incidente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -51,4 +52,9 @@ Route::prefix('calendario')->group(function(){
     Route::put('editcalendario', [CalendarioController::class, 'editDatos']);
     Route::delete('deletecalendario', [CalendarioController::class, 'deleteDatos']);
     Route::get('/reagendamiento', [CalendarioController::class, 'reagendamiento']);
+});
+
+Route::prefix('estadistica')->group(function () {
+    Route::get("incidenciasSemanal", [EstadisticaController::class, "incidenciasSemanal"]);
+    Route::get("incidenciasMensual", [EstadisticaController::class, "incidenciasMensual"]);
 });
