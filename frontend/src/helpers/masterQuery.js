@@ -46,6 +46,7 @@ const masterQuery = async (
           confirmButtonText: "Aceptar",
         });
       });
+      return response;
   } else {
   }
 };

@@ -20,6 +20,7 @@ const ModalIncidenciaHelper = () => {
 
   return (
     <>
+    <h1 className="font-bold">Texto de ejemplo</h1>
       <CustomForm inputs={inputs}/>
     </>
   );

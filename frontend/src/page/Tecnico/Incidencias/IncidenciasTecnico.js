@@ -1,13 +1,24 @@
-import React,{useState} from "react";
-import { Columnas,Filters} from "./helpers/tableHelper";
+import React, { useState } from "react";
+import { Columnas, Filters, Acciones } from "./helpers/tableHelper";
 import { CustomModal, CustomTable } from "../../../components";
 import ModalIncidenciaHelper from "./helpers/ModalIncidenciaHelper";
-
+import { baseUrl } from "../../../queries/apisUrl";
 
 function IncidenciasTecnico() {
+  const [openModal, setOpenModal] = useState(false);
+  const query = {
+    url: baseUrl + "api/incidente/incidenciaTable",
+    type: "post"
+  };
 
-  const queryUrl = { url: "http://127.0.0.1:8000/api/usuarios/datosUsuario" };
-  const [openModal, setOpenModal] = useState(false)
+  const botones = [
+    {
+      title : "Guardar",
+      onClick : () => {
+        console.log("Guardó");
+      }
+    }
+  ]
 
   const handleOpenModal = () => {
     setOpenModal(!openModal);
@@ -19,11 +30,19 @@ function IncidenciasTecnico() {
         titulo={"Incidencias"}
         columnas={Columnas}
         filtro={Filters}
-        query={queryUrl}
+        query={query}
+        acciones={Acciones}
         boton={true}
         onBoton={handleOpenModal}
       />
-      <CustomModal isOpen={openModal} onClose={handleOpenModal} titulo={"Crear incidencia"} children={<ModalIncidenciaHelper/>} />
+      <CustomModal
+        isOpen={openModal}
+        onClose={handleOpenModal}
+        titulo={"Crear incidencia"}
+        buttons={botones}
+      >
+        <ModalIncidenciaHelper />
+      </CustomModal>
     </>
   );
 }

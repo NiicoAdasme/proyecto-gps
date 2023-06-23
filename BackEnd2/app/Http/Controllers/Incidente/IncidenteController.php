@@ -19,4 +19,19 @@ class IncidenteController extends Controller
     {
         return $this->inciRepo->incidenciaTable($request);
     }
+
+    public function crearIncidencia(Request $request)
+    {
+        return $this->inciRepo->crearIncidencia($request);
+    }
+
+    public function turnoSelect()
+    {
+        return $this->inciRepo->turnoSelect();
+    }
+
+    public function departamentoSelect()
+    {
+        return $this->inciRepo->departamentoSelect();
+    }
 }
