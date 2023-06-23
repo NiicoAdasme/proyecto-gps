@@ -1,13 +1,14 @@
 import { createBrowserRouter,Route, createRoutesFromElements, } from "react-router-dom"
 import { NavBar } from '../components'
-import {Login,TareasTecnico,IncidenciasTecnico} from "./index";
+import {Login,TareasTecnico,IncidenciasTecnico,Estadisticas} from "./index";
 import { CalendarScreen } from "./Tecnico/calendar/CalendarScreen";
 
 
 const LinkTecnico = [
   { name: 'Incidencias', link: '/incidencias' },
   { name: 'Tareas', link: '/tareas' },
-  { name: 'Calendario', link: '/calendario'}
+  { name: 'Calendario', link: '/calendario'},
+  { name: 'Estadásticas', link: '/estadisticas'}
 ]
 
 const routerLoged = createBrowserRouter(
@@ -17,6 +18,7 @@ const routerLoged = createBrowserRouter(
         <Route path='tareas' element={<TareasTecnico />} />
         <Route path='miPerfil' element={<></>} />
         <Route path="calendario" element={<CalendarScreen/>} />
+        <Route path="estadisticas" element={<Estadisticas/>} />
       </Route>
     )
   )

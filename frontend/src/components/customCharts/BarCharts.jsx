@@ -9,7 +9,7 @@ import {
   YAxis,
 } from "recharts";
 
-const SimpleBarCharts = ({ data }) => {
+const BarCharts = ({ data }) => {
   return (
     <ResponsiveContainer width="95%" aspect={2}>
       <BarChart
@@ -32,4 +32,4 @@ const SimpleBarCharts = ({ data }) => {
   );
 };
 
-export default SimpleBarCharts;
+export default BarCharts;
