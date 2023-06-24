@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import loginCamanchaca from "../../commons/images/Fondo_loginCamanchaca.jpg";
 import { useMutation } from "react-query";
-import masterQuery from "../../helpers/masterQuery";    
+import masterQuery from "../../helpers/masterQuery";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../reducers/loginReducer";
+
+
 const Login = () => {
+  const dispatch = useDispatch();
+
   const url = "http://127.0.0.1:8000/api/login/login";
   const [inputs, setInputs] = useState({});
   const queryLogin = useMutation((params) => masterQuery(url, params, "post"));
@@ -12,12 +18,13 @@ const Login = () => {
       ...inputs,
       [nombre]: e.target.value,
     });
-    console.log(inputs);
   };
+
 
   const handleFiltro = async (e) => {
     const respuesta = await queryLogin.mutateAsync(inputs);
     console.log(respuesta);
+    dispatch(loginUser(respuesta));
   };
 
   return (

@@ -14,4 +14,8 @@ class CatalogoFalla extends Model
     protected $primaryKey = "id";
     protected $fillable = ["*"];
     
+    public function areaPlanta()
+    {
+        return $this->hasMany(AreaPlanta::class,"cafa_id");
+    }
 }

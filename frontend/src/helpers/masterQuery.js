@@ -22,14 +22,12 @@ const masterQuery = async (
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log(response.success.success);
         if (response.success.success) {
           setLoading(false);
-          //TODO arreglar toast
-          toast.success("Success Notification !", {
+          toast.success(response.success.mensaje, {
             position: toast.POSITION.TOP_RIGHT,
           });
-          return response;
+          return response.success;
         }
         setLoading(false);
         Swal.fire({
@@ -48,6 +46,7 @@ const masterQuery = async (
           confirmButtonText: "Aceptar",
         });
       });
+      return response;
   } else {
   }
 };

@@ -17,6 +17,9 @@ class DepartamentoSeeder extends Seeder
             [
                 "depa_nombre" => "Mantenimiento",
             ],
+            [
+                "depa_nombre" => "Produccion",
+            ],
         ];
 
 

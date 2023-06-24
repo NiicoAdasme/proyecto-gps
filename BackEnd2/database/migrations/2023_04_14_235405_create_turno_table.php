@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('turno', function (Blueprint $table) {
             $table->id();
-            $table->string("turn_codigo",100);
+            $table->integer("turn_codigo");
             $table->string("turn_nombre",100);
             $table->time("turn_hora_inicio");
             $table->time("turn_hora_fin");

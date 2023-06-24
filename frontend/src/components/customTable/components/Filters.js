@@ -1,18 +1,19 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
-import { setLoading } from "../../../queries/Loading/setLoading";
+import React, { useState } from "react";
+import { useMutation } from "react-query";
+import masterQuery from "../../../helpers/masterQuery";
 
-const Filters = ({ filtros, query , onFiltrosChange}) => {
-  const [inputValues, setInputValues] = useState({});
+const Filters = ({ filtros, query, onFiltrosChange }) => {
+  const [inputValues, setInputValues] = useState({perPage:5});
+  const queryRequest = useMutation((params) =>
+    masterQuery(query.url, params, query.type)
+  );
+
   const handleFiltro = async () => {
-    setLoading(true);
-    const response = await axios.post(query.url,inputValues);
-    if(response.data.success) {
-        onFiltrosChange(response.data.success);
+    const response = await queryRequest.mutateAsync(inputValues);
+    if (response.success) {
+      onFiltrosChange(response,inputValues);
     }
-    setLoading(false)
   };
-  
 
   const handleInputChange = (e, nombre) => {
     const { type, checked, value } = e.target;
@@ -50,13 +51,18 @@ const Filters = ({ filtros, query , onFiltrosChange}) => {
             ) : (
               <></>
             )}
-            <select className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 font-bold"
+            <select
+              className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 font-bold"
               name={filtro.nombre}
               onChange={(e) => handleInputChange(e, filtro.nombre)}
             >
-              <option className="font-bold" value="">Seleccione una opción</option>
-              {filtro.opciones.map((opcion,index) => (
-                <option key={index} className="font-bold" value={opcion.id}>{opcion.label}</option>
+              <option className="font-bold" value="">
+                Seleccione una opción
+              </option>
+              {filtro.opciones.map((opcion, index) => (
+                <option key={index} className="font-bold" value={opcion.id}>
+                  {opcion.label}
+                </option>
               ))}
             </select>
           </div>
@@ -64,7 +70,7 @@ const Filters = ({ filtros, query , onFiltrosChange}) => {
       }
 
       return (
-        <div key={index}    >
+        <div key={index}>
           {filtro.titulo ? (
             <h1 className="font-bold">{filtro.titulo}</h1>
           ) : (
