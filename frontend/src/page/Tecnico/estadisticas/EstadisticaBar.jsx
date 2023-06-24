@@ -2,19 +2,14 @@ import React from "react";
 import BarCharts from "../../../components/customCharts/BarCharts";
 import useEstadisticasBar from "./hooks/useEstadisticasBar";
 
-const EstadisticaBar = ({
-  inicialDatos,
-  API_URL,
-  siguienteGrafico,
-  setSiguienteGrafico,
-}) => {
+const EstadisticaBar = ({ API_URL, siguienteGrafico, setSiguienteGrafico }) => {
   // custon hooks
   const {
-    incidentes: semanalMensual,
+    datos: semanalMensual,
     totalIncidentes: total,
     isLoading,
     error,
-  } = useEstadisticasBar(API_URL, inicialDatos);
+  } = useEstadisticasBar(API_URL);
   // manejar tiempo de carga
   if (isLoading) {
     return <div>Cargando...</div>;
@@ -32,7 +27,8 @@ const EstadisticaBar = ({
         <div className="py-8 sm:py-16 lg:py-8">
           <div className="flex flex-col sm:flex-row items-center justify-between mb-4 px-6 sm:px-12">
             <h1 className="text-2xl sm:text-xl lg:text-2xl font-bold text-gray-900 mb-3 sm:mb-0">
-              Total incidencias {esSemanal ? "semanales" : "mensuales"} : {total}
+              Total incidencias {esSemanal ? "semanales" : "mensuales"} :{" "}
+              {total}
             </h1>
             <button
               className="bg-paletaAzul3 hover:bg-paletaAzul2 text-white font-bold py-3 px-5 rounded"
@@ -48,5 +44,5 @@ const EstadisticaBar = ({
       </div>
     </div>
   );
-}
+};
 export default EstadisticaBar;

@@ -11,7 +11,7 @@ import {
 
 const BarCharts = ({ data }) => {
   return (
-    <ResponsiveContainer width="95%" aspect={2}>
+    <ResponsiveContainer width="100%" aspect={2.5}>
       <BarChart
         data={data}
         margin={{

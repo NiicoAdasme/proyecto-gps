@@ -1,44 +1,23 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import useEstadisticasApi from "./useEstadisticasApi";
 
-
-const procesarApiDatos = (apiDatos, inicialDatos) => {
+const useEstadisticasBar = (url) => {
   
-  // objtendo los datos de la API
-  const apiDatosMesDia = apiDatos.reduce((acumulador, item) => {
-    acumulador[item.fecha.toLowerCase()] = item.incidencias;
-    return acumulador;
-  }, {});
-
-  return inicialDatos.map((item) => ({
-    ...item,
-    incidencias: apiDatosMesDia[item.fecha.toLowerCase()] || item.incidencias,
-  }));
-};
-
-const useEstadisticasBar = (url, inicialDatos) => {
-  
-  const [incidentes, setIncidentes] = useState(inicialDatos);
   const { datos, isLoading, error } = useEstadisticasApi(url); // respuesta de la API
-  
+
+  const [totalIncidentes, setTotalIncidentes] = useState(0);
+
   useEffect(() => {
-
     if (datos) {
-      const processedData = procesarApiDatos(datos, inicialDatos);
-      setIncidentes(processedData);
-    } else {
-      setIncidentes(inicialDatos);
+      const total = datos.reduce(
+        (suma, item) => suma + item.incidencias,
+        0
+      );
+      setTotalIncidentes(total);
     }
+  }, [datos]);
 
-  }, [datos, inicialDatos]);
-
-  const totalIncidentes = incidentes.reduce(
-    (suma, item) => suma + item.incidencias,
-    0
-  );
- 
-
-  return { incidentes, totalIncidentes, isLoading, error };
+  return { datos, totalIncidentes, isLoading, error };
 };
 
 export default useEstadisticasBar;
