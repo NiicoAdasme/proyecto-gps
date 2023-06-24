@@ -7,15 +7,46 @@ use App\Models\Incidente;
 use App\Traits\ApiResponser;
 use Exception;
 
+
 class EstadisticaRepository
 {
     use ApiResponser;
 
-    public function incidenciasSemanal()
+    // Template 
+    protected $diasDeLaSemana = [
+        ['fecha' => 'Lunes', 'incidencias' => 0],
+        ['fecha' => 'Martes', 'incidencias' => 0],
+        ['fecha' => 'Miércoles', 'incidencias' => 0],
+        ['fecha' => 'Jueves', 'incidencias' => 0],
+        ['fecha' => 'Viernes', 'incidencias' => 0],
+        ['fecha' => 'Sábado', 'incidencias' => 0],
+        ['fecha' => 'Domingo', 'incidencias' => 0],
+    ];
+
+    protected $mesesDelAno = [
+        ['fecha' => 'Enero', 'incidencias' => 0],
+        ['fecha' => 'Febrero', 'incidencias' => 0],
+        ['fecha' => 'Marzo', 'incidencias' => 0],
+        ['fecha' => 'Abril', 'incidencias' => 0],
+        ['fecha' => 'Mayo', 'incidencias' => 0],
+        ['fecha' => 'Junio', 'incidencias' => 0],
+        ['fecha' => 'Julio', 'incidencias' => 0],
+        ['fecha' => 'Agosto', 'incidencias' => 0],
+        ['fecha' => 'Septiembre', 'incidencias' => 0],
+        ['fecha' => 'Octubre', 'incidencias' => 0],
+        ['fecha' => 'Noviembre', 'incidencias' => 0],
+        ['fecha' => 'Diciembre', 'incidencias' => 0],
+    ];
+
+    public function __construct()
     {
         // Configura el idioma de Carbon a español
         Carbon::setLocale('es');
+    }
 
+    public function incidenciasSemanal()
+    {
+        
         // Obtiene la fecha del lunes de esta semana
         $startOfWeek = Carbon::now()->startOfWeek();
 
@@ -24,43 +55,11 @@ class EstadisticaRepository
 
         try {
 
-            $incidencias = Incidente::select('id', 'created_at')
-                ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
-                ->orderBy('created_at', 'asc')
-                ->get();
-
-            $incidenciasPorDia = $incidencias->groupBy(function ($incidencia) {
-                return ucfirst($incidencia->created_at->isoFormat('dddd'));  // Agrupa por día de la semana
-            })->map(function ($incidenciasDelDia, $dia) {
-                return [
-                    'fecha' => $dia,
-                    'incidencias' => $incidenciasDelDia->count(),
-                ];
-            });
-
-            // Crea una colección con todos los días de la semana
-            $diasDeLaSemana = collect([
-                ['fecha' => 'Lunes', 'incidencias' => 0],
-                ['fecha' => 'Martes', 'incidencias' => 0],
-                ['fecha' => 'Miércoles', 'incidencias' => 0],
-                ['fecha' => 'Jueves', 'incidencias' => 0],
-                ['fecha' => 'Viernes', 'incidencias' => 0],
-                ['fecha' => 'Sábado', 'incidencias' => 0],
-                ['fecha' => 'Domingo', 'incidencias' => 0],
-            ]);
+            // Esta funcion obtiene las fechas de las incidencias ordenadas [ Lun-Dom Ene-Dic ] 
+            $incidenciasPorDia = $this->getIncidenciasAgrupadas($startOfWeek, $endOfWeek, 'dddd');
 
             // Combina las dos colecciones
-            $resultado = $diasDeLaSemana->map(function ($dia) use ($incidenciasPorDia) {
-                // Busca el día en la colección de incidencias
-                $incidenciasDelDia = $incidenciasPorDia->firstWhere('fecha', $dia['fecha']);
-
-                // Si el día tiene incidencias, actualiza el número de incidencias
-                if ($incidenciasDelDia) {
-                    $dia['incidencias'] = $incidenciasDelDia['incidencias'];
-                }
-
-                return $dia;
-            });
+            $resultado = $this->fusionarIncidenciasConTemplate($this->diasDeLaSemana, $incidenciasPorDia);
 
             return $resultado;
         } catch (Exception $ex) {
@@ -70,9 +69,6 @@ class EstadisticaRepository
 
     public function incidenciasMensual()
     {
-        // Configura el idioma de Carbon a español
-        Carbon::setLocale('es');
-
         // Obtiene la fecha del primer día del año
         $startOfYear = Carbon::now()->startOfYear();
 
@@ -81,52 +77,54 @@ class EstadisticaRepository
 
         try {
 
-            $incidencias = Incidente::select('id', 'created_at')
-                ->whereBetween('created_at', [$startOfYear, $endOfYear])
-                ->orderBy('created_at', 'asc')
-                ->get();
-
-            $incidenciasPorMes = $incidencias->groupBy(function ($incidencia) {
-                return ucfirst($incidencia->created_at->isoFormat('MMMM'));  // Agrupa por mes
-            })->map(function ($incidenciasDelMes, $mes) {
-                return [
-                    'fecha' => $mes,
-                    'incidencias' => $incidenciasDelMes->count(),
-                ];
-            });
-
-            // Crea una colección con todos los meses del año
-            $mesesDelAno = collect([
-                ['fecha' => 'Enero', 'incidencias' => 0],
-                ['fecha' => 'Febrero', 'incidencias' => 0],
-                ['fecha' => 'Marzo', 'incidencias' => 0],
-                ['fecha' => 'Abril', 'incidencias' => 0],
-                ['fecha' => 'Mayo', 'incidencias' => 0],
-                ['fecha' => 'Junio', 'incidencias' => 0],
-                ['fecha' => 'Julio', 'incidencias' => 0],
-                ['fecha' => 'Agosto', 'incidencias' => 0],
-                ['fecha' => 'Septiembre', 'incidencias' => 0],
-                ['fecha' => 'Octubre', 'incidencias' => 0],
-                ['fecha' => 'Noviembre', 'incidencias' => 0],
-                ['fecha' => 'Diciembre', 'incidencias' => 0],
-            ]);
+            // Esta funcion obtiene las fechas de las incidencias ordenadas [ Lun-Dom Ene-Dic ] 
+            $incidenciasPorMes = $this->getIncidenciasAgrupadas($startOfYear, $endOfYear, 'MMMM');
 
             // Combina las dos colecciones
-            $resultado = $mesesDelAno->map(function ($mes) use ($incidenciasPorMes) {
-                // Busca el mes en la colección de incidencias
-                $incidenciasDelMes = $incidenciasPorMes->firstWhere('fecha', $mes['fecha']);
-
-                // Si el mes tiene incidencias, actualiza el número de incidencias
-                if ($incidenciasDelMes) {
-                    $mes['incidencias'] = $incidenciasDelMes['incidencias'];
-                }
-
-                return $mes;
-            });
+            $resultado = $this->fusionarIncidenciasConTemplate($this->mesesDelAno, $incidenciasPorMes);
 
             return $resultado;
         } catch (Exception $ex) {
             return $this->errorResponse("Error al procesar los datos", 409, $ex, __METHOD__);
         }
+    }
+
+
+    //                              UTILIDAD
+    // Esta funcion obtiene las fechas de las incidencias ordenadas [ Lun-Dom Ene-Dic ] 
+    private function getIncidenciasSemanMes(Carbon $start, Carbon $end)
+    {
+        return Incidente::select('created_at')
+            ->whereBetween('created_at', [$start, $end])
+            ->orderBy('created_at', 'asc')
+            ->cursor();
+    }
+
+    // Formatea las fechas para obtener solo el dia o mes [fecha: Lunes - Fecha: Enero] 
+    private function getIncidenciasAgrupadas(Carbon $start, Carbon $end, string $formato)
+    {
+        $incidencias = $this->getIncidenciasSemanMes($start, $end);
+
+        return $incidencias->groupBy(function ($incidencia) use ($formato) {
+            return ucfirst($incidencia->created_at->isoFormat($formato));
+        })->map(function ($incidenciasAgrupadas, $clave) {
+            return [
+                'fecha' => $clave,
+                'incidencias' => $incidenciasAgrupadas->count(),
+            ];
+        });
+    }
+    // 
+    private function fusionarIncidenciasConTemplate(array $template, $incidenciasAgrupadas)
+    {
+        return collect($template)->map(function ($item) use ($incidenciasAgrupadas) {
+            $incidenciasDelItem = $incidenciasAgrupadas->firstWhere('fecha', $item['fecha']);
+
+            if ($incidenciasDelItem) {
+                $item['incidencias'] = $incidenciasDelItem['incidencias'];
+            }
+
+            return $item;
+        });
     }
 }
