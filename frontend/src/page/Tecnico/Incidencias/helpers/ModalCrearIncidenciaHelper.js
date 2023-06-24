@@ -1,7 +1,7 @@
 import React from "react";
 import { CustomForm } from "../../../../components";
 
-const ModalIncidenciaHelper = () => {
+const ModalCrearIncidenciaHelper = () => {
   const inputs = [
     {
       nombre: "usua_nombre",
@@ -26,4 +26,4 @@ const ModalIncidenciaHelper = () => {
   );
 };
 
-export default ModalIncidenciaHelper;
+export default ModalCrearIncidenciaHelper;

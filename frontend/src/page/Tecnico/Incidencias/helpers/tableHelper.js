@@ -45,9 +45,6 @@ const Filters = [
   }
 ];
 
-const Acciones = [
-  { id: 1, label: "Ver Detalle", onClick : (data) => {console.log(data)}},
-  { id: 2, label: "Sub Ticket" },
-];
 
-export { Columnas, Filters, Acciones };
+
+export { Columnas, Filters };
