@@ -17,7 +17,7 @@ const NavBar = ({ options }) => {
       <div className="shadow-md w-full top-0 left-0">
         <div className="md:flex md:items-center md:justify-between py-4 md:px-10 px-7 bg-gradient-to-r from-paletaAzul3 to-paletaAzul1 transform">
           <div className="flex items-center place-content-between">
-            <Link key={1} to="/">
+            <Link to="/">
               <img
                 className="logoCamanchaca"
                 src={logo}

@@ -1,25 +1,24 @@
+import { createSlice } from "@reduxjs/toolkit";
+
 const initialState = {
-  isLogged: false,
+  isLogged: true,
   userData: null,
 };
 
-const loginReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'LOGIN':
-      return {
-        ...state,
-        isLogged: true,
-        userData: action.payload,
-      };
-    case 'LOGOUT':
-      return {
-        ...state,
-        isLogged: false,
-        userData: null,
-      };
-    default:
-      return state;
+const loginReducer = createSlice({
+  name:"login",
+  initialState,
+  reducers: {
+    loginUser : (state,action) => {
+      const {success , respuesta} = action.payload;
+      state.isLogged = success;
+      state.userData = respuesta;
+    },
+    changeLogin : (state,action) => {
+      state.isLogged = action.payload;
+    }
   }
-};
+})
 
-export default loginReducer;
+export const {loginUser,changeLogin} = loginReducer.actions;
+export default loginReducer.reducer;

@@ -9,6 +9,8 @@ module.exports = {
         headerTabla : '#E5C6C6',
         paletaAzul3 : '#194569',
         paletaAzul3Hover : '#5c7fbb',
+        paginationSelect : '#1e2c40',
+        paginationSelected : '#85a7c9'
       }
     },
   },
