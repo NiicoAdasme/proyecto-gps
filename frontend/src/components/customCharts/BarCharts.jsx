@@ -1,3 +1,4 @@
+import React, { memo } from "react";
 import {
   Bar,
   BarChart,
@@ -10,17 +11,10 @@ import {
 } from "recharts";
 
 const BarCharts = ({ data }) => {
+  console.log("estoy en el barchar");
   return (
-    <ResponsiveContainer width="100%" aspect={2.5}>
-      <BarChart
-        data={data}
-        margin={{
-          top: 30,
-          right: 30,
-          left: 20,
-          bottom: 5,
-        }}
-      >
+    <ResponsiveContainer width="100%" aspect={2}>
+      <BarChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="fecha" />
         <YAxis allowDecimals={false} />
@@ -32,4 +26,4 @@ const BarCharts = ({ data }) => {
   );
 };
 
-export default BarCharts;
+export default memo(BarCharts);

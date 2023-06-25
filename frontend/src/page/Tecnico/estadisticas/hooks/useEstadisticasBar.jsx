@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState} from "react";
 import useEstadisticasApi from "./useEstadisticasApi";
 
-const useEstadisticasBar = (url) => {
-  
-  const { datos, isLoading, error } = useEstadisticasApi(url); // respuesta de la API
+const useEstadisticasBar = (API_URL) => {
+
+  const { datos, isLoading, error } = useEstadisticasApi(API_URL); // respuesta de la API
 
   const [totalIncidentes, setTotalIncidentes] = useState(0);
 

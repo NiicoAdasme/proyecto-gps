@@ -12,15 +12,16 @@ const masterQuery = async (
   setLoading(true);
   const token = localStorage.getItem("token");
   if (mutation) {
-    const response = await fetch(url, {
+    const response = await fetch(url, 
+      {
       method: metodo,
       headers: {
         token: token,
         "Content-Type": contentType,
       },
-      body: JSON.stringify(params),
-    })
-      .then((response) => response.json())
+       body: JSON.stringify(params),
+  
+    }).then((response) => response.json())
       .then((response) => {
         if (response.success.success) {
           setLoading(false);
@@ -46,7 +47,7 @@ const masterQuery = async (
           confirmButtonText: "Aceptar",
         });
       });
-      return response;
+    return response;
   } else {
   }
 };

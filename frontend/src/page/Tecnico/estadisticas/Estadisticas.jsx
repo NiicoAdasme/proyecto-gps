@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import EstadisticaBar from "./EstadisticaBar";
+import Pueba from "./hooks/Pueba";
 
 import {
   API_URL_SEMANAL,
@@ -8,7 +9,7 @@ import {
 
 const Estadistica = () => {
   const [siguienteGrafico, setSiguienteGrafico] = useState(true);
-
+  console.log("estadistica");
   return (
     <section className="p-10">
       {
@@ -18,6 +19,7 @@ const Estadistica = () => {
           setSiguienteGrafico={setSiguienteGrafico}
         />
       }
+      <Pueba/>
     </section>
   );
 };
