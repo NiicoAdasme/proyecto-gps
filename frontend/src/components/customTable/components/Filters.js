@@ -99,13 +99,13 @@ const Filters = ({ filtros, query, onFiltrosChange }) => {
 
           <div className="flex md:justify-end space-x-4 my-2">
             <button
-              className="bg-paletaAzul3  text-white rounded-full px-4 py-2 float-right font-bold"
+              className="bg-paletaAzul3 hover:bg-paletaAzul3Hover text-white rounded-full px-4 py-2 float-right font-bold"
               onClick={handleFiltro}
             >
               Filtrar
             </button>
             <button
-              className="bg-paletaAzul3  text-white rounded-full px-4 py-2 float-right font-bold"
+              className="bg-paletaAzul3 hover:bg-paletaAzul3Hover text-white rounded-full px-4 py-2 float-right font-bold"
               onClick={() => setInputValues(null)}
             >
               Limpiar

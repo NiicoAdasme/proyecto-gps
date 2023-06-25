@@ -2,22 +2,22 @@ import React, { useState } from "react";
 import { Columnas, Filters } from "./helpers/tableHelper";
 import { CustomModal, CustomTable } from "../../../components";
 import ModalCrearIncidenciaHelper from "./helpers/ModalCrearIncidenciaHelper";
-import { baseUrl } from "../../../queries/apisUrl";
+import { queriesUrl } from "./queries/apisUrl";
+import ModalVerDetalleHelper from "./helpers/ModalVerDetalleHelper";
 
 function IncidenciasTecnico() {
   const [openModal, setOpenModal] = useState(false);
   const [openModalHijo, setOpenModalHijo] = useState(false);
-  const query = {
-    url: baseUrl + "api/incidente/incidenciaTable",
-    type: "post",
-  };
+  const [openDetalle, setOpenDetalle] = useState(false);
+  const [dataDetalle, setDataDetalle] = useState(null);
 
   const Acciones = [
     {
       id: 1,
       label: "Ver Detalle",
       onClick: (data) => {
-        console.log(data);
+        setDataDetalle(data);
+        setOpenDetalle(true);
       },
     },
     {
@@ -50,13 +50,17 @@ function IncidenciasTecnico() {
     setOpenModalHijo(true);
   };
 
+  const onCloseModalDetalle = () => {
+    setOpenDetalle(!openDetalle);
+  };
+
   return (
     <>
       <CustomTable
         titulo={"Incidencias"}
         columnas={Columnas}
         filtro={Filters}
-        query={query}
+        query={queriesUrl.incidenciasTable}
         acciones={Acciones}
         boton={true}
         onBoton={handleOpenModal}
@@ -65,7 +69,6 @@ function IncidenciasTecnico() {
         isOpen={openModal}
         onClose={handleOpenModal}
         titulo={"Crear incidencia"}
-        buttons={botones}
       >
         <ModalCrearIncidenciaHelper />
       </CustomModal>
@@ -77,6 +80,14 @@ function IncidenciasTecnico() {
         buttons={botones}
       >
         <></>
+      </CustomModal>
+
+      <CustomModal
+        isOpen={openDetalle}
+        onClose={onCloseModalDetalle}
+        titulo={"Detalle Incidencia"}
+      >
+        <ModalVerDetalleHelper dataDetalle={dataDetalle}/>
       </CustomModal>
     </>
   );
