@@ -24,27 +24,29 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('catalogo')->group(function(){
-    Route::post("crearMensaje",[CatalogoMensajeController::class,"crearMensaje"]);
-    Route::get("hola",[CatalogoMensajeController::class,"hola"]);
+Route::prefix('catalogo')->group(function () {
+    Route::post("crearMensaje", [CatalogoMensajeController::class, "crearMensaje"]);
+    Route::get("hola", [CatalogoMensajeController::class, "hola"]);
 });
 
-Route::prefix('usuarios')->group(function(){
-    Route::post("datosUsuario",[UsuarioController::class,"datosUsuarios"]);
+Route::prefix('usuarios')->group(function () {
+    Route::post("datosUsuario", [UsuarioController::class, "datosUsuarios"]);
 });
 
-Route::prefix('incidente')->group(function(){
-    Route::post("incidenciaTable",[IncidenteController::class,"incidenciaTable"]);
-    Route::post("crearIncidencia",[IncidenteController::class,"crearIncidencia"]);
-    Route::get("turnoSelect",[IncidenteController::class,"turnoSelect"]);
-    Route::get("departamentoSelect",[IncidenteController::class,"departamentoSelect"]);
+Route::prefix('incidente')->group(function () {
+    Route::post("incidenciaTable", [IncidenteController::class, "incidenciaTable"]);
+    Route::post("crearIncidencia", [IncidenteController::class, "crearIncidencia"]);
+    Route::get("turnoSelect", [IncidenteController::class, "turnoSelect"]);
+    Route::get("departamentoSelect", [IncidenteController::class, "departamentoSelect"]);
+    Route::get("areaPlantaSelect", [IncidenteController::class, "areaDepartamentoSelect"]);
+    Route::post("detalleIncidente",[IncidenteController::class,"detalleIncidente"]);
 });
 
-Route::prefix('login')->group(function(){
-    Route::post("login",[LoginController::class,"login"]);
+Route::prefix('login')->group(function () {
+    Route::post("login", [LoginController::class, "login"]);
 });
 
-Route::prefix('calendario')->group(function(){
+Route::prefix('calendario')->group(function () {
     Route::get('getcalendario', [CalendarioController::class, 'getCalendario']);
     Route::get('getcalendario', [CalendarioController::class, 'getCalendarioByid']);
     Route::post('postcalendario', [CalendarioController::class, 'postDatos']);
