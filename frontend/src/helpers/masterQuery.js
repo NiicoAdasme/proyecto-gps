@@ -7,6 +7,7 @@ const masterQuery = async (
   params,
   metodo,
   mutation = true,
+  hasToast = true,
   contentType = "application/json"
 ) => {
   setLoading(true);
@@ -25,9 +26,11 @@ const masterQuery = async (
       .then((response) => {
         if (response.success.success) {
           setLoading(false);
-          toast.success(response.success.mensaje, {
-            position: toast.POSITION.TOP_RIGHT,
-          });
+          if (hasToast) {
+            toast.success(response.success.mensaje, {
+              position: toast.POSITION.TOP_RIGHT,
+            });
+          }
           return response.success;
         }
         setLoading(false);

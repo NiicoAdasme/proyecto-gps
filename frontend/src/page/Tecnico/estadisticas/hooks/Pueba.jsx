@@ -15,9 +15,8 @@ function Pueba() {
   //   masterQuery(query.url, params, query.type)
   // );
 
-  const refreshQuery = masterQuery(query.url, query.metodo);
+  // const refreshQuery = masterQuery(query.url,param query.metodo);
   console.log(query.url);
-
   // console.log(semanalMensual);
   // console.log(isLoading);
   // console.log(isError);

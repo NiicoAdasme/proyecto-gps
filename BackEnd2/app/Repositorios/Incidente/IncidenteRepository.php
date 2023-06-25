@@ -2,6 +2,7 @@
 
 namespace App\Repositorios\Incidente;
 
+use App\Models\AreaPlanta;
 use App\Models\Departamento;
 use App\Models\Incidente;
 use App\Models\Turno;
@@ -53,12 +54,12 @@ class IncidenteRepository
             $incidente = new Incidente();
 
             $incidente->inci_observacion = $request->inci_observacion;
-            $incidente->esta_id = $request->esta_id;
+            $incidente->esta_id = $request?->esta_id ?? 1;
             $incidente->turn_id = $request->turn_id;
             $incidente->arpl_id = $request->arpl_id;
-            $incidente->usua_id = $request->usua_id;
+            $incidente->usua_id = $request?->usua_id ?? 1;
             $incidente->depa_id = $request->depa_id;
-            $incidente->incidencia_padre_id = $request->incidencia_padre_id ?? null;
+            $incidente->incidencia_padre_id = $request?->incidencia_padre_id ?? null;
 
             $incidente->save();
 
@@ -71,7 +72,8 @@ class IncidenteRepository
     public function turnoSelect()
     {
         try {
-            return Turno::select("turn_codigo as value", "turn_nombre as label")->get();
+            $turnos = Turno::select("turn_codigo as id", "turn_nombre as label")->get();
+            return $this->successResponse($turnos, $this->findMessage(3));
         } catch (Exception $ex) {
             return $this->errorResponse("Error al procesar los datos", 409, $ex, __METHOD__);
         }
@@ -80,7 +82,36 @@ class IncidenteRepository
     public function departamentoSelect()
     {
         try {
-            return Departamento::select("id as value", "depa_nombre as label")->get();
+            $departamentos = Departamento::select("id as id", "depa_nombre as label")->get();
+            return $this->successResponse($departamentos, "");
+        } catch (Exception $ex) {
+            return $this->errorResponse("Error al procesar los datos", 409, $ex, __METHOD__);
+        }
+    }
+
+    public function areaDepartamentoSelect()
+    {
+        try {
+            $areaPlanta = AreaPlanta::select("id as id", "arpl_nombre as label")->get();
+            return $this->successResponse($areaPlanta, "");
+        } catch (Exception $ex) {
+            return $this->errorResponse("Error al procesar los datos", 409, $ex, __METHOD__);
+        }
+    }
+
+    public function detalleIncidente($request)
+    {
+        try {
+            $detalle = Incidente::where("id", $request->id)
+                ->with(
+                    "turno:id,turn_codigo,turn_nombre",
+                    "areaPlanta:id,arpl_nombre",
+                    "departamento:id,depa_nombre",
+                    "estado:id,esta_nombre",
+                    "usuario:id,usua_nombre,usua_apellido_p,usua_apellido_m,usua_rut,usua_correo"
+                )
+                ->first();
+            return $this->successResponse($detalle, "");
         } catch (Exception $ex) {
             return $this->errorResponse("Error al procesar los datos", 409, $ex, __METHOD__);
         }

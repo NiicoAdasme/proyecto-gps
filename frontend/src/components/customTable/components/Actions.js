@@ -11,7 +11,10 @@ const Dropdown = forwardRef((props, ref) => (
       <button
         key={index}
         className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-200 w-full text-left"
-        onClick={() => props.handleActionClick(accion)}
+        onClick={() => {
+          props.handleActionClick(accion);
+          props.setIsOpen(false);
+        }}
       >
         {accion.label}
       </button>
@@ -68,7 +71,11 @@ const Actions = ({ acciones, idFila }) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dropdown acciones={acciones} handleActionClick={handleActionClick}/>
+            <Dropdown
+              acciones={acciones}
+              handleActionClick={handleActionClick}
+              setIsOpen={setIsOpen}
+            />
           </Transition>
         </div>
       )}
