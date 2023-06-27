@@ -1,17 +1,14 @@
 import React, { useState } from "react";
 import EstadisticaBar from "./EstadisticaBar";
-import Pueba from "./hooks/Pueba";
-
-import {
-  API_URL_SEMANAL,
-  API_URL_MENSUAL,
-} from "./constantsEstadistica";
+import { API_URL_SEMANAL, API_URL_MENSUAL } from "./constantsEstadistica";
 
 const Estadistica = () => {
   const [siguienteGrafico, setSiguienteGrafico] = useState(true);
+  
   console.log("estadistica");
+
   return (
-    <section className="p-10">
+    <section className="p-10 font-bold">
       {
         <EstadisticaBar
           API_URL={siguienteGrafico ? API_URL_SEMANAL : API_URL_MENSUAL}
@@ -19,7 +16,6 @@ const Estadistica = () => {
           setSiguienteGrafico={setSiguienteGrafico}
         />
       }
-      <Pueba/>
     </section>
   );
 };

@@ -12,18 +12,25 @@ const masterQuery = async (
 ) => {
   setLoading(true);
   const token = localStorage.getItem("token");
+
+  const requestOptions = {
+    method: metodo,
+    headers: {
+      token: token,
+      "Content-Type": contentType,
+    },
+  };
+
+  if (metodo !== "get" && metodo !== "head") {
+    requestOptions.body = JSON.stringify(params);
+  }
+  console.log(hasToast);
   if (mutation) {
-    const response = await fetch(url, 
-      {
-      method: metodo,
-      headers: {
-        token: token,
-        "Content-Type": contentType,
-      },
-       body: JSON.stringify(params),
-  
-    }).then((response) => response.json())
+
+    const response = await fetch(url, requestOptions)
+      .then((response) => response.json())
       .then((response) => {
+        console.log(url)
         if (response.success.success) {
           setLoading(false);
           if (hasToast) {
@@ -32,14 +39,15 @@ const masterQuery = async (
             });
           }
           return response.success;
+        } else {
+          setLoading(false);
+          Swal.fire({
+            title: "Error",
+            text: response?.error?.mensaje ?? "",
+            icon: "error",
+            confirmButtonText: "Aceptar",
+          });
         }
-        setLoading(false);
-        Swal.fire({
-          title: "Error",
-          text: response?.error?.mensaje ?? "",
-          icon: "error",
-          confirmButtonText: "Aceptar",
-        });
       })
       .catch((error) => {
         setLoading(false);

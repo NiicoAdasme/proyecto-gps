@@ -1,28 +1,39 @@
-import { useState, useEffect} from 'react';
-import axios from 'axios';
+import { useMemo } from "react";
+import masterQuery from "../../../../helpers/masterQuery";
+import { useQuery } from "react-query";
 
-const useEstadisticasApi = (API_URL) => {
+const useEstadisticaApi = (API_URL) => {
+  const queryOptions = {
+    url: API_URL,
+    metodo: "get",
+  };
 
-  const [datos, setData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(API_URL);
-        setData(response.data);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setIsLoading(false);
-      }
+  const fetchData = async () => {
+    const { url, metodo } = queryOptions;
+    try {
+      const response = await masterQuery(url, null, metodo, true, false);
+      return response;
+    } catch (error) {
+      console.error(error);
+      throw new Error(
+        error.message || "Error al obtener los datos - useEstadisticasApi "
+      );
     }
+  };
 
-    fetchData();
-  }, [API_URL]);
+  const { data, isLoading, isError, error } = useQuery(API_URL, fetchData);
 
-  return { datos, isLoading, error };
+  const totalIncidencias = useMemo(() => {
+    if (data && data.respuesta) {
+      return data.respuesta.reduce(
+        (total, item) => total + item.incidencias,
+        0
+      );
+    }
+    return 0;
+  }, [data]);
+
+  return { data, totalIncidencias, isLoading, isError, error };
 };
 
-export default useEstadisticasApi;
+export default useEstadisticaApi;

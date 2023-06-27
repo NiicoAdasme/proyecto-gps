@@ -10,8 +10,8 @@ import {
   YAxis,
 } from "recharts";
 
-const BarCharts = ({ data }) => {
-  console.log("estoy en el barchar");
+const BarCharts = ({data}) => {
+  console.log(data);
   return (
     <ResponsiveContainer width="100%" aspect={2}>
       <BarChart data={data}>
@@ -26,4 +26,4 @@ const BarCharts = ({ data }) => {
   );
 };
 
-export default memo(BarCharts);
+export default BarCharts;

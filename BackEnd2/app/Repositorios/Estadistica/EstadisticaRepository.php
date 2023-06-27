@@ -61,7 +61,8 @@ class EstadisticaRepository
             // Combina las dos colecciones
             $resultado = $this->fusionarIncidenciasConTemplate($this->diasDeLaSemana, $incidenciasPorDia);
 
-            return $resultado;
+  
+            return $this->successResponse($resultado, "Incidencias por dia listadas correctamente");
         } catch (Exception $ex) {
             return $this->errorResponse("Error al procesar los datos", 409, $ex, __METHOD__);
         }
@@ -83,7 +84,7 @@ class EstadisticaRepository
             // Combina las dos colecciones
             $resultado = $this->fusionarIncidenciasConTemplate($this->mesesDelAno, $incidenciasPorMes);
 
-            return $resultado;
+            return $this->successResponse($resultado, "Incidencias por mes listadas correctamente");
         } catch (Exception $ex) {
             return $this->errorResponse("Error al procesar los datos", 409, $ex, __METHOD__);
         }
