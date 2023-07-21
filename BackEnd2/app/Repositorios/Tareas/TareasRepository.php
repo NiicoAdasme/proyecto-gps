@@ -6,7 +6,7 @@ namespace App\Repositorios\Tareas;
 use App\Traits\ApiResponser;
 use Exception;
 use Illuminate\Support\Facades\Log;
-use App\Models\Tareas;
+use App\Models\Tarea;
 
 class TareasRepository
 {
@@ -22,14 +22,42 @@ class TareasRepository
     }
     public function allTareas($request) {
         try {
-            $data = Tareas :: select()->get();
-            return $this->successResponse($data, "Tareas listadas correctamente");
+            $tareas = Tarea :: select()
+            ->with(
+                "usuario:id,usua_nombre,usua_apellido_p",
+                "estado:id,esta_nombre"
+            )
+            ->when($request?->fechaInicio,function ($q) use($request){
+                $q->whereDate('tare_fecha_inicio',$request->fechaInicio);
+            })
+            ->orderBy("id", "DESC")
+            ->paginate($request->perPage);
+            $tareas->getCollection()->transform(function ($tarea) {
+                $respuesta = [
+                    "id" => $tarea->id,
+                    "titulo" => $tarea->tare_titulo,
+                    "estado" => $tarea->estado->esta_nombre,
+                    "usuario" => $tarea->usuario->usua_nombre . " " . $tarea->usuario->usua_apellido_p,
+                    "fechaInicio" => $tarea->tare_fecha_inicio
+                ];
+                return $respuesta;
+            });
+            return $this->successResponse($tareas, "Tareas listadas correctamente");
         } catch (Exception $ex) {
             return $this->errorResponse("",409,$ex,__METHOD__);
         }
     }
+    public function tareaDetail($request) {
+        try {
+            Log::info($request->id);
+            $tareas = Tarea :: find($request?->id);
+            return $this->successResponse($tareas, "Detalle de tarea listado correctamente");
+        } catch (Exception $ex) {
+            return $this->errorResponse("Se cayó buscando detalles",409,$ex,__METHOD__);
+        }
+    }
 
-    private function ingresarDatos($data, Tareas $tarea = new Tareas()){
+    private function ingresarDatos($data, Tarea $tarea = new Tarea()){
 
         $tarea->tare_titulo = $data->tare_titulo ?? $tarea->tare_titulo;
         $tarea->tare_descripcion = $data->tare_descripcion ?? $tarea->tare_descripcion;

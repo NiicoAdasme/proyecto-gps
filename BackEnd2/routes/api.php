@@ -35,7 +35,8 @@ Route::prefix('usuarios')->group(function(){
 });
 Route::prefix('tareas')->group(function(){
     Route::post("createTarea",[TareasController::class,"createTarea"]);
-    Route::get("allTareas",[TareasController::class,"allTareas"]);
+    Route::post("allTareas",[TareasController::class,"allTareas"]);
+    Route::post("tareaDetail",[TareasController::class,"tareaDetail"]);
 });
 
 Route::prefix('incidente')->group(function(){
