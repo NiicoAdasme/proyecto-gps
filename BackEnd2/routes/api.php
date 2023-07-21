@@ -3,6 +3,7 @@
 use App\Http\Controllers\Catalogo\CatalogoMensajeController;
 use App\Http\Controllers\Incidente\IncidenteController;
 use App\Http\Controllers\Login\LoginController;
+use App\Http\Controllers\Tareas\TareasController;
 use App\Http\Controllers\Usuario\UsuarioController;
 use App\Http\Controllers\Calendario\CalendarioController;
 use App\Models\Incidente;
@@ -31,6 +32,11 @@ Route::prefix('catalogo')->group(function () {
 
 Route::prefix('usuarios')->group(function () {
     Route::post("datosUsuario", [UsuarioController::class, "datosUsuarios"]);
+});
+Route::prefix('tareas')->group(function(){
+    Route::post("createTarea",[TareasController::class,"createTarea"]);
+    Route::post("allTareas",[TareasController::class,"allTareas"]);
+    Route::post("tareaDetail",[TareasController::class,"tareaDetail"]);
 });
 
 Route::prefix('incidente')->group(function () {
