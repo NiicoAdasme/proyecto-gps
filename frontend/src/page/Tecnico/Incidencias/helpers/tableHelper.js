@@ -18,6 +18,7 @@ const Columnas = [
   {
     Header: "Estado",
     accessor: "estado",
+    
   },
   {
     Header: "Acciones",

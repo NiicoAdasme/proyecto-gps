@@ -1,8 +1,25 @@
 import React, { useState } from "react";
-import axios from 'axios';
-import { CustomModal } from "../../../components";
-
+import ModalTareaHelper from "./helpers/ModalTareaHelper";
+import { Columnas, Filters } from "./helpers/tableHelper";
+import { CustomModal, CustomTable } from "../../../components";
+import { baseUrl } from "../../../queries/apisUrl";
+import ModalTareaHelperDetail from "./helpers/ModalTareaHelperDetail";
 const TareasTecnico = () => {
+  const query = {
+    url: baseUrl + "api/tareas/allTareas",
+    type: "post"
+  };
+  const [openModal, setOpenModal] = useState(false);
+  const [openModalDetail, setOpenModalDetail] = useState(false);
+
+  const botones = [
+    {
+      title : "Guardar",
+      onClick : () => {
+        console.log("Guardó");
+      }
+    }
+  ]
   const [isModal, setisModal] = useState(false)
   const [tareaTitulo, setTareaTitulo] = useState('');
   const [tareaDescripcion, setTareaDescripcion] = useState('');
@@ -23,73 +40,50 @@ const TareasTecnico = () => {
       depa_id: 1
     };
 
-    try {
-      axios.post('http://127.0.0.1:8000/api/tareas/createTarea', data)
-        .then(response => {
-          // Aquí puedes manejar la respuesta de la API
-          console.log(response.data);
-        })
-        .catch(error => {
-          // Aquí puedes manejar el error en caso de fallo en la solicitud
-          console.error('Error:', error);
-        });
-      // Restablecer los valores del formulario
-      setTareaDescripcion('');
-      setFechaInicio('');
-      setFechaFin('');
-      // Restablecer el estado del modal
-      handleOpenModal();
-    } catch (error) {
-      console.error('Error al crear la tarea:', error);
-    }
+ 
   };
-  const handleOpenModal = () => {
-    setisModal(!isModal);
+   const handleOpenModal = () => {
+    setOpenModal(!openModal);
   };
-
+   const handleOpenModalDetail = () => {
+    setOpenModalDetail(!openModalDetail);
+  };
+ 
+  const Acciones = [
+    { id: 1, label: "Ver Detalle", onClick : (data) => {setOpenModalDetail(true)}},
+    { id: 2, label: "Sub Ticket" },
+  ];
   return (
     <>
+      {/* <CustomForm inputs={formInputs} /> */}
+      <CustomTable
+        titulo={"Tareas"}
+        columnas={Columnas}
+        filtro={Filters}
+        query={query}
+        acciones={Acciones}
+        boton={true}
+        onBoton={handleOpenModal}
+      />
+      <CustomModal
+        isOpen={openModal}
+        onClose={handleOpenModal}
+        titulo={"Crear Tarea"}
+        buttons={botones}
+      >
+        <ModalTareaHelper />
+      </CustomModal>
+
+      <CustomModal
+        isOpen={openModalDetail}
+        onClose={handleOpenModalDetail}
+        titulo={"Detalle tarea"}
+        buttons={botones}
+      >
+        <ModalTareaHelperDetail />
+      </CustomModal>
       <button onClick={handleOpenModal}>Agregar</button>
-      <CustomModal isOpen={isModal} onClose={handleOpenModal} children={<form onSubmit={handleSubmit}>
-        <label>
-          Titulo:
-          <input
-            type="text"
-            value={tareaTitulo}
-            onChange={(e) => setTareaTitulo(e.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Descripción:
-          <input
-            type="text"
-            value={tareaDescripcion}
-            onChange={(e) => setTareaDescripcion(e.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Fecha de inicio:
-          <input
-            type="date"
-            value={fechaInicio}
-            onChange={(e) => setFechaInicio(e.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Fecha de fin:
-          <input
-            type="date"
-            value={fechaFin}
-            onChange={(e) => setFechaFin(e.target.value)}
-          />
-        </label>
-        <br />
-        {/* Agrega más campos del formulario */}
-        <button type="submit">Crear Tarea</button>
-      </form>} />
+
     </>
   );
 };
