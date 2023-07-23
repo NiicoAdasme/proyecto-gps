@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import ModalTareaHelper from "./helpers/ModalTareaHelper";
-import { Columnas, Filters } from "./helpers/tableHelper";
-import { CustomModal, CustomTable } from "../../../components";
 import { baseUrl } from "../../../queries/apisUrl";
+import { CustomModal, CustomTable } from "../../../components";
+import { Columnas, Filters } from "./helpers/tableHelper";
+import ModalTareaHelper from "./helpers/ModalTareaHelper";
 import ModalTareaHelperDetail from "./helpers/ModalTareaHelperDetail";
+
+
+
 const TareasTecnico = () => {
   const query = {
     url: baseUrl + "api/tareas/allTareas",
@@ -11,7 +14,6 @@ const TareasTecnico = () => {
   };
   const [openModal, setOpenModal] = useState(false);
   const [openModalDetail, setOpenModalDetail] = useState(false);
-
   const botones = [
     {
       title : "Guardar",
@@ -20,28 +22,7 @@ const TareasTecnico = () => {
       }
     }
   ]
-  const [isModal, setisModal] = useState(false)
-  const [tareaTitulo, setTareaTitulo] = useState('');
-  const [tareaDescripcion, setTareaDescripcion] = useState('');
-  const [fechaInicio, setFechaInicio] = useState('');
-  const [fechaFin, setFechaFin] = useState('');
-  const handleSubmit = async (e) => {
-    e.preventDefault();
 
-    const data = {
-      tare_titulo: tareaTitulo,
-      tare_descripcion: tareaDescripcion,
-      tare_fecha_inicio: fechaInicio,
-      tare_fecha_fin: fechaFin,
-      tare_color: "#0000",
-      usua_id: 1,
-      esta_id: 1,
-      arpl_id: 1,
-      depa_id: 1
-    };
-
- 
-  };
    const handleOpenModal = () => {
     setOpenModal(!openModal);
   };
@@ -55,7 +36,7 @@ const TareasTecnico = () => {
   ];
   return (
     <>
-      {/* <CustomForm inputs={formInputs} /> */}
+      
       <CustomTable
         titulo={"Tareas"}
         columnas={Columnas}
@@ -82,7 +63,6 @@ const TareasTecnico = () => {
       >
         <ModalTareaHelperDetail />
       </CustomModal>
-      <button onClick={handleOpenModal}>Agregar</button>
 
     </>
   );
