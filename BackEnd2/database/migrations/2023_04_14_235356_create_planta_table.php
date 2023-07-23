@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('planta', function (Blueprint $table) {
             $table->id();
-            $table->string("plan_codigo",100);
+            $table->integer("plan_codigo");
             $table->string("plan_nombre",100);
 
             $table->timestamps();

@@ -13,4 +13,9 @@ class Planta extends Model
     protected $table = "planta";
     protected $primaryKey = "id";
     protected $fillable = ["*"];
+
+    public function areaPlanta()
+    {
+        return $this->hasMany(AreaPlanta::class,"plan_id");
+    }
 }

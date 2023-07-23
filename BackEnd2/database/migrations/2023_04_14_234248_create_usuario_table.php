@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string("usua_nombre",150);
             $table->string("usua_apellido_p",150)->nullable();
             $table->string("usua_apellido_m",150)->nullable();
+            $table->string("usua_pass");
             $table->string("usua_rut",9);
             $table->string("usua_correo",320);
             $table->boolean("usua_activo");
