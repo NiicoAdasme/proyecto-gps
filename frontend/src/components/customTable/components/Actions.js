@@ -57,7 +57,7 @@ const Actions = ({ acciones, idFila }) => {
   return (
     <>
       {acciones !== false && (
-        <div className="absolute inline-block" ref={actionsRef}>
+        <div className=" flex justify-center items-center md:inline-block" ref={actionsRef}>
           <button onClick={toggleDropdown}>
             <MoreVertIcon />
           </button>
