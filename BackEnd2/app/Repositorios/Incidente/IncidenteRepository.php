@@ -48,26 +48,35 @@ class IncidenteRepository
         }
     }
 
-    public function crearIncidencia($request)
-    {
-        try {
-            $incidente = new Incidente();
+    // ... Modificacion del codigo crear incidencia para que pueda crear subticket
 
-            $incidente->inci_observacion = $request->inci_observacion;
-            $incidente->esta_id = $request?->esta_id ?? 1;
-            $incidente->turn_id = $request->turn_id;
-            $incidente->arpl_id = $request->arpl_id;
-            $incidente->usua_id = $request?->usua_id ?? 1;
-            $incidente->depa_id = $request->depa_id;
-            $incidente->incidencia_padre_id = $request?->incidencia_padre_id ?? null;
+public function crearIncidencia($request)
+{
+    try {
+        $incidente = new Incidente();
 
-            $incidente->save();
-
-            return $this->successResponse($incidente, $this->findMessage(3));
-        } catch (Exception $ex) {
-            return $this->errorResponse("Error al procesar los datos", 409, $ex, __METHOD__);
+        $incidente->inci_observacion = $request->inci_observacion;
+        $incidente->esta_id = $request?->esta_id ?? 1;
+        $incidente->turn_id = $request->turn_id;
+        $incidente->arpl_id = $request->arpl_id;
+        $incidente->usua_id = $request?->usua_id ?? 1;
+        $incidente->depa_id = $request->depa_id;
+        
+        // Verificar si se proporcionó el id del ticket padre
+        if ($request->has('incidencia_padre_id')) {
+            $incidente->incidencia_padre_id = $request->incidencia_padre_id;
         }
+        
+        $incidente->save();
+
+        return $this->successResponse($incidente, $this->findMessage(3));
+    } catch (Exception $ex) {
+        return $this->errorResponse("Error al procesar los datos", 409, $ex, __METHOD__);
     }
+}
+
+
+
 
     public function turnoSelect()
     {
@@ -116,4 +125,47 @@ class IncidenteRepository
             return $this->errorResponse("Error al procesar los datos", 409, $ex, __METHOD__);
         }
     }
+
+    public function IncidenciasHijas( $request)
+{
+    try {
+        // Obtener el ID del ticket padre desde el cuerpo de la solicitud JSON.
+        $ticketPadreId = $request->input('ticket_padre_id');
+
+        // Realiza cualquier consulta o lógica para obtener las incidencias hijas del ticket padre.
+        // Por ejemplo:
+        $incidenciasHijas = Incidente::where('incidencia_padre_id', $ticketPadreId)
+            ->with(
+                "areaPlanta:id,arpl_nombre",
+                "turno:id,turn_nombre",
+                "usuario:id,usua_nombre,usua_apellido_p",
+                "departamento:id,depa_nombre",
+                "estado:id,esta_nombre"
+            )
+            ->orderBy("id", "DESC")
+            ->get();
+
+        // Realiza cualquier otra transformación o lógica necesaria antes de devolver los datos.
+        // Por ejemplo:
+        $respuesta = $incidenciasHijas->map(function ($incidente) {
+            return [
+                "id" => $incidente->id,
+                "observacion" => $incidente->inci_observacion,
+                "estado" => $incidente->estado->esta_nombre,
+                "areaPlanta" => $incidente->areaPlanta->arpl_nombre,
+                "turno" => $incidente->turno->turn_nombre,
+                "usuario" => $incidente->usuario->usua_nombre . " " . $incidente->usuario->usua_apellido_p,
+                "departamento" => $incidente->departamento->depa_nombre
+            ];
+        });
+
+        return $respuesta;
+    } catch (Exception $ex) {
+        return $this->errorResponse("Error al procesar los datos", 409, $ex, __METHOD__);
+    }
 }
+
+}
+
+
+

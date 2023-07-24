@@ -45,4 +45,12 @@ class IncidenteController extends Controller
     {
         return $this->inciRepo->detalleIncidente($request);
     }
+
+    public function incidenciasHijas(Request $request)
+    {
+        return $this->inciRepo->incidenciasHijas($request);
+    }
+
+    
+    
 }

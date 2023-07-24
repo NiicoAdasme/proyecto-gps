@@ -46,6 +46,8 @@ Route::prefix('incidente')->group(function () {
     Route::get("departamentoSelect", [IncidenteController::class, "departamentoSelect"]);
     Route::get("areaPlantaSelect", [IncidenteController::class, "areaDepartamentoSelect"]);
     Route::post("detalleIncidente",[IncidenteController::class,"detalleIncidente"]);
+    Route::post('incidenciasHijas', [IncidenteController::class, 'incidenciasHijas']);
+    
 });
 
 Route::prefix('login')->group(function () {
@@ -60,3 +62,5 @@ Route::prefix('calendario')->group(function () {
     Route::delete('deletecalendario', [CalendarioController::class, 'deleteDatos']);
     Route::get('/reagendamiento', [CalendarioController::class, 'reagendamiento']);
 });
+
+
