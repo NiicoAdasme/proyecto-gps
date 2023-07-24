@@ -34,6 +34,17 @@ class TareaSeeder extends Seeder
                 "esta_id" => 1,
                 "arpl_id" => 1,
                 "depa_id" => 1
+            ],
+            [
+                "tare_titulo" => "Cumple del jefe",
+                "tare_descripcion" => "Comprar un pastel",
+                "tare_fecha_inicio" => "2023-06-23",
+                "tare_fecha_fin" => "2023-06-24",
+                "tare_color" => "#000000",
+                "usua_id" => 1,
+                "esta_id" => 1,
+                "arpl_id" => 1,
+                "depa_id" => 1
             ]
         ];
 

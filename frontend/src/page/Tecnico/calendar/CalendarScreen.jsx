@@ -1,4 +1,4 @@
-import React, { Children, useState } from 'react';
+import React, { Children, useEffect, useState } from 'react';
 // import { Navbar } from '../../../components/ui/Navbar';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
@@ -14,18 +14,27 @@ import { uiOpenModal } from '../../../actions/ui';
 import { eventClearActive, eventSetActive } from '../../../actions/events';
 import './style/styles.css';
 import { CustomModal } from '../../../components';
+import { useMutation } from 'react-query';
+import masterQuery from '../../../helpers/masterQuery';
 
 moment.locale('es');
 
 const localizer = momentLocalizer(moment);
 
+
 export const CalendarScreen = () => {
+
+    const url = "http://127.0.0.1:8000/api/calendario/getcalendarios";
+
+    const queryLogin = useMutation((params) => masterQuery(url, params, "get"));
 
     const dispatch = useDispatch();
 
     const {events, activeEvent} = useSelector(state => state.calendar);
     
     const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'month');
+
+    const [tareas, setTareas] = useState([])
 
 
     const onDoubleClick = e => {
@@ -59,6 +68,24 @@ export const CalendarScreen = () => {
     const onSelectSlot = (e) => {
         dispatch(eventClearActive());
     };
+
+    const fetchData = async () => {
+        
+        const respuesta = await queryLogin.mutateAsync();
+
+        return respuesta.respuesta
+    }
+
+    // useEffect(()=> {
+    //     fetchData()
+    //         .then(res => setTareas(res))
+    //         .catch(err => console.log(err))
+    
+    //     console.log(tareas)
+    // }, [])
+
+    // useefect y dispatch de nuevo evento del calendario
+
 
     return (
         <div className="calendar-screen" id="calendar">
