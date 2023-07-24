@@ -52,8 +52,9 @@ Route::prefix('login')->group(function () {
     Route::post("login", [LoginController::class, "login"]);
 });
 
-Route::prefix('calendario')->group(function () {
-    Route::get('getcalendario', [CalendarioController::class, 'getCalendario']);
+
+Route::prefix('calendario')->group(function(){
+    Route::get('getcalendarios', [CalendarioController::class, 'getCalendario']);
     Route::get('getcalendario', [CalendarioController::class, 'getCalendarioByid']);
     Route::post('postcalendario', [CalendarioController::class, 'postDatos']);
     Route::put('editcalendario', [CalendarioController::class, 'editDatos']);
