@@ -1,24 +1,19 @@
 const Columnas = [
   {
-    Header: "Área planta",
-    accessor: "areaPlanta",
+    Header: "Título",
+    accessor: "titulo",
   },
   {
-    Header: "Turno",
-    accessor: "turno",
+    Header: "Fecha inicio",
+    accessor: "fechaInicio",
   },
   {
-    Header: "Usuario",
+    Header: "Responsable",
     accessor: "usuario",
-  },
-  {
-    Header: "Departamento",
-    accessor: "departamento",
   },
   {
     Header: "Estado",
     accessor: "estado",
-    
   },
   {
     Header: "Acciones",
@@ -28,21 +23,16 @@ const Columnas = [
 
 const Filters = [
   {
-    nombre: "esta_id",
+    nombre: "estado",
     tipo: "select",
     titulo: "Estado",
     placeholder: "Procesado",
     opciones: [{ id: 1, label: "opcion1" }],
   },
   {
-    nombre: "usua_fecha",
-    tipo: "checkbox",
-    titulo: "Fecha Nacimiento",
-  },
-  {
-    nombre: "turn_id",
+    nombre: "fechaInicio",
     tipo: "date",
-    titulo: "Fecha creación"
+    titulo: "Fecha de inicio"
   }
 ];
 

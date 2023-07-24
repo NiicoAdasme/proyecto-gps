@@ -3,6 +3,7 @@
 use App\Http\Controllers\Catalogo\CatalogoMensajeController;
 use App\Http\Controllers\Incidente\IncidenteController;
 use App\Http\Controllers\Login\LoginController;
+use App\Http\Controllers\Tareas\TareasController;
 use App\Http\Controllers\Usuario\UsuarioController;
 use App\Http\Controllers\Calendario\CalendarioController;
 use App\Models\Incidente;
@@ -24,25 +25,33 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('catalogo')->group(function(){
-    Route::post("crearMensaje",[CatalogoMensajeController::class,"crearMensaje"]);
-    Route::get("hola",[CatalogoMensajeController::class,"hola"]);
+Route::prefix('catalogo')->group(function () {
+    Route::post("crearMensaje", [CatalogoMensajeController::class, "crearMensaje"]);
+    Route::get("hola", [CatalogoMensajeController::class, "hola"]);
 });
 
-Route::prefix('usuarios')->group(function(){
-    Route::post("datosUsuario",[UsuarioController::class,"datosUsuarios"]);
+Route::prefix('usuarios')->group(function () {
+    Route::post("datosUsuario", [UsuarioController::class, "datosUsuarios"]);
+});
+Route::prefix('tareas')->group(function(){
+    Route::post("createTarea",[TareasController::class,"createTarea"]);
+    Route::post("allTareas",[TareasController::class,"allTareas"]);
+    Route::post("tareaDetail",[TareasController::class,"tareaDetail"]);
 });
 
-Route::prefix('incidente')->group(function(){
-    Route::post("incidenciaTable",[IncidenteController::class,"incidenciaTable"]);
-    Route::post("crearIncidencia",[IncidenteController::class,"crearIncidencia"]);
-    Route::get("turnoSelect",[IncidenteController::class,"turnoSelect"]);
-    Route::get("departamentoSelect",[IncidenteController::class,"departamentoSelect"]);
+Route::prefix('incidente')->group(function () {
+    Route::post("incidenciaTable", [IncidenteController::class, "incidenciaTable"]);
+    Route::post("crearIncidencia", [IncidenteController::class, "crearIncidencia"]);
+    Route::get("turnoSelect", [IncidenteController::class, "turnoSelect"]);
+    Route::get("departamentoSelect", [IncidenteController::class, "departamentoSelect"]);
+    Route::get("areaPlantaSelect", [IncidenteController::class, "areaDepartamentoSelect"]);
+    Route::post("detalleIncidente",[IncidenteController::class,"detalleIncidente"]);
 });
 
-Route::prefix('login')->group(function(){
-    Route::post("login",[LoginController::class,"login"]);
+Route::prefix('login')->group(function () {
+    Route::post("login", [LoginController::class, "login"]);
 });
+
 
 Route::prefix('calendario')->group(function(){
     Route::get('getcalendarios', [CalendarioController::class, 'getCalendario']);

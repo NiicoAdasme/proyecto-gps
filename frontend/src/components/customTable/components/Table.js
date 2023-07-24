@@ -54,16 +54,7 @@ const Table = ({
     getTableBodyProps,
     headerGroups,
     page,
-    nextPage,
-    previousPage,
-    canNextPage,
-    canPreviousPage,
-    gotoPage,
-    pageCount,
-    prepareRow,
-    pageOptions,
-    setPageSize,
-    state,
+    prepareRow
   } = useTable(
     {
       columns,
@@ -72,7 +63,6 @@ const Table = ({
     usePagination
   );
 
-  const { pageIndex, pageSize } = state;
   return (
     <>
       <div className="overflow-x-auto space-y-6">
@@ -90,7 +80,7 @@ const Table = ({
           </select> */}
           {boton ? (
             <button
-              className="bg-paletaAzul3 text-white font-bold py-2 px-4 rounded-full"
+              className="bg-paletaAzul3 hover:bg-paletaAzul3Hover text-white font-bold py-2 px-4 rounded-full"
               onClick={onBoton}
             >
               +

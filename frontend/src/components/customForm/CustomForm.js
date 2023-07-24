@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 
-const CustomForm = ({ inputs }) => {
+const CustomForm = ({
+  inputs,
+  ingresar,
+  onSubmit,
+  textoIngresar = "Ingresar",
+}) => {
   const [inputValues, setInputValues] = useState({});
 
   const handleInputChange = (e, nombre) => {
@@ -28,6 +33,8 @@ const CustomForm = ({ inputs }) => {
               name={input.nombre}
               checked={inputValues[input.nombre] || false}
               onChange={(e) => handleInputChange(e, input.nombre)}
+              disabled={input?.disabled ? true : false}
+              required={input?.required ? true : false}
             />
           </div>
         );
@@ -40,9 +47,11 @@ const CustomForm = ({ inputs }) => {
               <></>
             )}
             <select
-              className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 font-bold"
+              className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 font-bold w-full"
               name={input.nombre}
               onChange={(e) => handleInputChange(e, input.nombre)}
+              disabled={input?.disabled ? true : false}
+              required={input?.required ? true : false}
             >
               <option className="font-bold" value="">
                 Seleccione una opción
@@ -61,19 +70,39 @@ const CustomForm = ({ inputs }) => {
         <div key={index}>
           {input.titulo ? <h1 className="font-bold">{input.titulo}</h1> : <></>}
           <input
-            className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 font-bold"
+            className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 font-bold w-full"
             type={input.tipo}
             placeholder={input.placeholder}
             name={input.nombre}
             key={index}
             onChange={(e) => handleInputChange(e, input.nombre)}
+            disabled={input?.disabled ? true : false}
+            required={input?.required ? true : false}
           />
         </div>
       );
     });
   };
 
-  return <>{inputs ? renderInputs() : <></>}</>;
+  return (
+    <>
+      <div className="space-y-3">
+        {inputs ? renderInputs() : <></>}
+        {ingresar ? (
+          <button
+            className="bg-paletaAzul3 hover:bg-paletaAzul3Hover text-white font-bold py-2 px-4 rounded-full w-full"
+            onClick={() => {
+              onSubmit(inputValues);
+            }}
+          >
+            {textoIngresar}
+          </button>
+        ) : (
+          <></>
+        )}
+      </div>
+    </>
+  );
 };
 
 export default CustomForm;
