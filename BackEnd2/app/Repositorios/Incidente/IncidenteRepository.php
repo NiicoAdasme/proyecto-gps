@@ -76,8 +76,6 @@ public function crearIncidencia($request)
 }
 
 
-
-
     public function turnoSelect()
     {
         try {
@@ -133,7 +131,7 @@ public function crearIncidencia($request)
         $ticketPadreId = $request->input('ticket_padre_id');
 
         // Realiza cualquier consulta o lógica para obtener las incidencias hijas del ticket padre.
-        // Por ejemplo:
+
         $incidenciasHijas = Incidente::where('incidencia_padre_id', $ticketPadreId)
             ->with(
                 "areaPlanta:id,arpl_nombre",
@@ -146,7 +144,7 @@ public function crearIncidencia($request)
             ->get();
 
         // Realiza cualquier otra transformación o lógica necesaria antes de devolver los datos.
-        // Por ejemplo:
+    
         $respuesta = $incidenciasHijas->map(function ($incidente) {
             return [
                 "id" => $incidente->id,
