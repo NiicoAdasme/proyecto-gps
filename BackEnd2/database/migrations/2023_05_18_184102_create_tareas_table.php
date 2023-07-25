@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string("tare_titulo", 100);
             $table->string("tare_descripcion",100);
-            $table->date("tare_fecha_inicio");
-            $table->date("tare_fecha_fin");
+            $table->dateTime("tare_fecha_inicio");
+            $table->dateTime("tare_fecha_fin");
             $table->string("tare_color", 100);
 
             $table->foreignId("esta_id")->nullable()->constrained("estado")->cascadeOnDelete()->nullOnDelete();

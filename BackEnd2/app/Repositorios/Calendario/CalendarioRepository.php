@@ -16,7 +16,7 @@ class CalendarioRepository
     {
         try {
             $tarea = Tarea::all();
-
+            
             if ($tarea) return $this->successResponse($tarea, "se encontro", 200);
 
             return $this->errorResponse("Datos ingresados son inválidos", 409);
@@ -29,11 +29,11 @@ class CalendarioRepository
     {
         $tarea = Tarea::select(
             "id",
+            "tare_titulo",
             "tare_descripcion",
-            "titulo",
             "tare_fecha_inicio",
             "tare_fecha_fin",
-            "color",
+            "tare_color",
             "esta_id",
             "arpl_id",
             "usua_id",
